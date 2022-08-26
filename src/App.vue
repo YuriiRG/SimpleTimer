@@ -1,17 +1,22 @@
+<script setup lang="ts">
+import Presets from './components/Presets.vue';
+import Timer from './components/Timer.vue';
+import Button from './components/Button.vue';
+</script>
+
 <template>
   <div class="container">
     <div class="app">
-      <div class="test">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-        Corporis quaerat quibusdam dolore libero sint!
-        Odit, autem nobis. Iusto, natus, saepe sint,
-        expedita nulla enim mollitia quod facilis nam laborum in?
+      <div class="presets">
+        <Presets/>
       </div>
-      <div>
-        small div
+      <div class="buttons">
+        <Button/>
+        <Button/>
+        <Button/>
       </div>
-      <div>
-        third div
+      <div class="timer">
+        <Timer/>
       </div>
     </div>
   </div>
