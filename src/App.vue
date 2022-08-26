@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import Presets from './components/Presets.vue';
-import Timer from './components/Timer.vue';
-import Button from './components/Button.vue';
+import Presets from "./components/Presets.vue";
+import Timer from "./components/Timer.vue";
+import Button from "./components/Button.vue";
+
+function test() {
+  alert("It works");
+}
 </script>
 
 <template>
@@ -11,9 +15,9 @@ import Button from './components/Button.vue';
         <Presets/>
       </div>
       <div class="buttons">
-        <Button/>
-        <Button/>
-        <Button/>
+        <Button text="Start/stop" @click="test"/>
+        <Button text="Reset"/>
+        <Button text="Save preset"/>
       </div>
       <div class="timer">
         <Timer/>
@@ -25,11 +29,17 @@ import Button from './components/Button.vue';
 <style scoped>
 
 .app {
-  padding: 1em;
+  padding: 1.5em;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 1em;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
   gap: 1em;
 }
 
