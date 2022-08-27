@@ -19,8 +19,11 @@ const emit = defineEmits<{
     border: none;
     padding: 0.6em;
     font-size: inherit; 
-    border-radius: 0.5em;
-    box-shadow: 0.1rem 0.1rem 1rem #aaa;
+    border-radius: var(--sm-border-radius);
+    box-shadow: var(--sm-shadow-x)
+                var(--sm-shadow-y)
+                var(--sm-shadow-blur)
+                var(--sm-shadow-color);
     transition: background-color 0.15s;
   }
   .button:hover {

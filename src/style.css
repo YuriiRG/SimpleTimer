@@ -4,6 +4,15 @@
   margin: 0;
   padding: 0;
 }
+
+:root {
+  --sm-shadow-x: 0.1rem;
+  --sm-shadow-y: 0.1rem;
+  --sm-shadow-blur: 1rem;
+  --sm-shadow-color: #aaa;
+  --sm-border-radius: 0.5em;
+}
+
 #app {
   min-height: 100vh;
 }

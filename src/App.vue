@@ -2,18 +2,23 @@
 import Presets from "./components/Presets.vue";
 import Timer from "./components/Timer.vue";
 import Button from "./components/Button.vue";
+import { ref } from "vue";
 
 function test() {
   alert("It works");
 }
+
+const dummyPresets = ref([
+  { time: "1:12:34" },
+  { time: "2:13:37" },
+]);
+
 </script>
 
 <template>
   <div class="container">
     <div class="app">
-      <div class="presets">
-        <Presets/>
-      </div>
+      <Presets v-model:presets="dummyPresets"/>
       <div class="buttons">
         <Button text="Start/stop" @click="test"/>
         <Button text="Reset"/>
@@ -31,9 +36,9 @@ function test() {
 .app {
   padding: 1.5em;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: column-reverse;
   justify-content: center;
+  align-items: center;
   gap: 1em;
 }
 
@@ -48,6 +53,7 @@ function test() {
     border-radius: 1em;
     box-shadow: 1rem 1rem 3rem 1.4rem #bbb;
     flex-direction: row;
+    align-items: stretch;
   }
   .test {
     width: 15em;
