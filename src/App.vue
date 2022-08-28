@@ -12,10 +12,15 @@ const dummyPresets = ref([
   { id: idCounter++, time: "2:77:37" },
   { id: idCounter++, time: "2:77:37" },
   { id: idCounter++, time: "2:77:37" },
+  { id: idCounter++, time: "2:77:37" },
 ]);
 
 function deletePreset(id: number): void {
   dummyPresets.value = dummyPresets.value.filter(p => p.id !== id);
+}
+
+function addDummyPreset() {
+  dummyPresets.value.push({ id: idCounter++, time: "2:77:37" });
 }
 
 </script>
@@ -27,7 +32,7 @@ function deletePreset(id: number): void {
       <div class="buttons">
         <Button text="Start/stop"/>
         <Button text="Reset"/>
-        <Button text="Save preset"/>
+        <Button text="Save preset" @click="addDummyPreset"/>
       </div>
       <div class="timer">
         <Timer/>

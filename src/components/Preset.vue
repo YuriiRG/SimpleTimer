@@ -18,11 +18,10 @@ const emit = defineEmits<{
     <span>
       {{data.time}}
     </span>
-    <svg xmlns="http://www.w3.org/2000/svg" 
-          width="16"
-          height="16"
+    <svg xmlns="http://www.w3.org/2000/svg"
           fill="currentColor"
           @click="emit('delete', data.id)"
+          class="delete-icon"
           viewBox="0 0 16 16">
       <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 
       .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 
@@ -58,16 +57,24 @@ const emit = defineEmits<{
 }
 
 .v-enter-active, .v-leave-active {
-  transition: all 0.5s ease !important;
+  transition: all 0.2s ease !important;
 }
 
 .v-enter-from, .v-leave-to {
-  opacity: 0;
   font-size: 0;
+  padding: 0;
+  margin: 0;
 }
 
-.v-enter-from > svg, .v-leave-to > svg {
+.v-enter-active .delete-icon, .v-leave-active .delete-icon {
+  width: 0;
   height: 0;
+}
+
+
+.delete-icon {
+  max-width: 16px;
+  max-height: 16px;
 }
 
 </style>
