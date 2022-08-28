@@ -30,6 +30,7 @@ function deletePreset(id: number): void {
 
 <style scoped>
 .presets {
+  width: 6rem;
   border-radius: var(--sm-border-radius);
   box-shadow: var(--sm-shadow-x)
               var(--sm-shadow-y)

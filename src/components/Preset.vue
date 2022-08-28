@@ -35,7 +35,6 @@ const emit = defineEmits<{
 .string {
   border-radius: 0.3em;
   padding: 0.6em 0.4em 0.6em 1em;
-  width: 5rem;
   box-shadow: var(--sm-shadow-x)
               var(--sm-shadow-y)
               var(--sm-shadow-blur)
