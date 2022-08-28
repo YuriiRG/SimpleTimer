@@ -6,10 +6,6 @@ import { ref } from "vue";
 
 let idCounter = 0;
 
-function test() {
-  alert("It works");
-}
-
 const dummyPresets = ref([
   { id: idCounter++, time: "1:12:34" },
   { id: idCounter++, time: "2:13:37" },
@@ -27,7 +23,7 @@ function deletePreset(id: number): void {
     <div class="app">
       <Presets v-model:presets="dummyPresets" @delete-preset="deletePreset"/>
       <div class="buttons">
-        <Button text="Start/stop" @click="test"/>
+        <Button text="Start/stop"/>
         <Button text="Reset"/>
         <Button text="Save preset"/>
       </div>

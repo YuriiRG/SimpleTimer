@@ -44,16 +44,29 @@ const emit = defineEmits<{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  opacity: 1;
 }
 .string:hover {
   background-color: #eee;
-  transition: background-color 0.15s, transform 0.05s;
 }
 
 @media screen and (min-width: 460px) {
   .string {
     padding: 0.3em 0.2em 0.3em 0.5em;
   }
+}
+
+.v-enter-active, .v-leave-active {
+  transition: all 0.5s ease !important;
+}
+
+.v-enter-from, .v-leave-to {
+  opacity: 0;
+  font-size: 0;
+}
+
+.v-enter-from > svg, .v-leave-to > svg {
+  height: 0;
 }
 
 </style>

@@ -22,7 +22,9 @@ function deletePreset(id: number): void {
 
 <template>
   <div class="presets">
-    <Preset v-for="p in presets" :data="p" @delete="deletePreset" :key="p.id"/>
+    <TransitionGroup>
+      <Preset v-for="p in presets" :data="p" @delete="deletePreset" :key="p.id"/>
+    </TransitionGroup>
   </div>
 </template>
 
@@ -47,5 +49,4 @@ function deletePreset(id: number): void {
     padding: 0.4em;
   }
 }
-
 </style>
