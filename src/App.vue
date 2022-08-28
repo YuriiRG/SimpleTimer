@@ -11,6 +11,10 @@ function test() {
 const dummyPresets = ref([
   { time: "1:12:34" },
   { time: "2:13:37" },
+  { time: "2:13:37" },
+  { time: "2:13:37" },
+  { time: "2:13:37" },
+  { time: "2:13:37" },
 ]);
 
 </script>
@@ -46,6 +50,7 @@ const dummyPresets = ref([
   display: flex;
   flex-direction: column;
   gap: 1em;
+  flex-direction: row;
 }
 
 @media screen and (min-width: 460px) {
@@ -53,7 +58,7 @@ const dummyPresets = ref([
     border-radius: 1em;
     box-shadow: 1rem 1rem 3rem 1.4rem #bbb;
     flex-direction: row;
-    align-items: stretch;
+    align-items: center;
   }
   .test {
     width: 15em;
@@ -63,6 +68,9 @@ const dummyPresets = ref([
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+  }
+  .buttons {
+    flex-direction: column;
   }
 }
 </style>
