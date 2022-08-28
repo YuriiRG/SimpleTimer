@@ -2,18 +2,27 @@
 import Preset from './Preset.vue';
 
 interface Preset {
-  time: string
+  time: string,
+  id: number
 }
 
-defineProps<{
+const props = defineProps<{
   presets: Array<Preset>
 }>();
+
+const emit = defineEmits<{
+  (e: "deletePreset", id: number): void
+}>();
+
+function deletePreset(id: number): void {
+  emit("deletePreset", id);
+}
 
 </script>
 
 <template>
   <div class="presets">
-    <Preset v-for="p in presets" :text="p.time"/>
+    <Preset v-for="p in presets" :data="p" @delete="deletePreset" :key="p.id"/>
   </div>
 </template>
 

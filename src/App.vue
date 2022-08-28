@@ -4,25 +4,28 @@ import Timer from "./components/Timer.vue";
 import Button from "./components/Button.vue";
 import { ref } from "vue";
 
+let idCounter = 0;
+
 function test() {
   alert("It works");
 }
 
 const dummyPresets = ref([
-  { time: "1:12:34" },
-  { time: "2:13:37" },
-  { time: "2:13:37" },
-  { time: "2:13:37" },
-  { time: "2:13:37" },
-  { time: "2:13:37" },
+  { id: idCounter++, time: "1:12:34" },
+  { id: idCounter++, time: "2:13:37" },
+  { id: idCounter++, time: "2:77:37" },
 ]);
+
+function deletePreset(id: number): void {
+  dummyPresets.value = dummyPresets.value.filter(p => p.id !== id);
+}
 
 </script>
 
 <template>
   <div class="container">
     <div class="app">
-      <Presets v-model:presets="dummyPresets"/>
+      <Presets v-model:presets="dummyPresets" @delete-preset="deletePreset"/>
       <div class="buttons">
         <Button text="Start/stop" @click="test"/>
         <Button text="Reset"/>
