@@ -44,6 +44,8 @@ const emit = defineEmits<{
   align-items: center;
   justify-content: space-between;
   opacity: 1;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
 }
 .string:hover {
   background-color: #eee;

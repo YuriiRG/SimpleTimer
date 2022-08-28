@@ -10,6 +10,8 @@ const dummyPresets = ref([
   { id: idCounter++, time: "1:12:34" },
   { id: idCounter++, time: "2:13:37" },
   { id: idCounter++, time: "2:77:37" },
+  { id: idCounter++, time: "2:77:37" },
+  { id: idCounter++, time: "2:77:37" },
 ]);
 
 function deletePreset(id: number): void {

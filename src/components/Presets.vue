@@ -36,18 +36,24 @@ function deletePreset(id: number): void {
               var(--sm-shadow-y)
               var(--sm-shadow-blur)
               var(--sm-shadow-color);
-  padding: 0.8em;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+  padding-left: 0.8em;
+  padding-right: 0.8em;
+  
+
   display: flex;
   flex-direction: column;
-  gap: 0.8em;
   align-self: center;
 }
 
 @media screen and (min-width: 460px) {
   .presets {
     align-self: stretch;
-    gap: 0.4em;
-    padding: 0.4em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    padding-left: 0.4em;
+    padding-right: 0.4em;
   }
 }
 </style>
