@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { watch, ref } from 'vue';
 import Preset from './Preset.vue';
 
 interface Preset {
@@ -18,13 +19,32 @@ function deletePreset(id: number): void {
   emit("deletePreset", id);
 }
 
+const showPlaceholder = ref(false);
+
+function updateShowPlaceholder(length: number): void {
+  if (length === 0) {
+    setTimeout(() => {
+      showPlaceholder.value = true;
+    }, 100);
+  } else {
+    showPlaceholder.value = false;
+  }
+}
+
+watch(props, (newProps) => {
+  updateShowPlaceholder(newProps.presets.length);
+});
+
 </script>
 
 <template>
   <div class="presets">
-    <TransitionGroup>
+    <TransitionGroup v-if="!showPlaceholder">
       <Preset v-for="p in presets" :data="p" @delete="deletePreset" :key="p.id"/>
     </TransitionGroup>
+    <div v-else class="placeholder">
+      No presets
+    </div>
   </div>
 </template>
 
@@ -60,4 +80,9 @@ function deletePreset(id: number): void {
     padding-right: calc(var(--p-right)/2);
   }
 }
+
+.placeholder {
+  padding: 0.4em;
+}
+
 </style>

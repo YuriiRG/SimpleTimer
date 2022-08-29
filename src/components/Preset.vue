@@ -57,7 +57,7 @@ const emit = defineEmits<{
 }
 
 .v-enter-active, .v-leave-active {
-  transition: all 0.2s ease !important;
+  transition: all 0.1s ease !important;
 }
 
 .v-enter-from, .v-leave-to {
