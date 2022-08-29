@@ -30,16 +30,20 @@ function deletePreset(id: number): void {
 
 <style scoped>
 .presets {
+  --p-top: 0.4em;
+  --p-bottom: 0.4em;
+  --p-left: 0.8em;
+  --p-right: 0.8em;
   width: 6rem;
   border-radius: var(--sm-border-radius);
   box-shadow: var(--sm-shadow-x)
               var(--sm-shadow-y)
               var(--sm-shadow-blur)
               var(--sm-shadow-color);
-  padding-top: 0.4em;
-  padding-bottom: 0.4em;
-  padding-left: 0.8em;
-  padding-right: 0.8em;
+  padding-top: var(--p-top);
+  padding-bottom: var(--p-bottom);
+  padding-left: var(--p-left);
+  padding-right: var(--p-right);
   
 
   display: flex;
@@ -50,10 +54,10 @@ function deletePreset(id: number): void {
 @media screen and (min-width: 460px) {
   .presets {
     align-self: stretch;
-    padding-top: 0.2em;
-    padding-bottom: 0.2em;
-    padding-left: 0.4em;
-    padding-right: 0.4em;
+    padding-top: calc(var(--p-top)/2);
+    padding-bottom: calc(var(--p-bottom)/2);
+    padding-left: calc(var(--p-left)/2);
+    padding-right: calc(var(--p-right)/2);
   }
 }
 </style>
