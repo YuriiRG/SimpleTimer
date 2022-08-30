@@ -2,9 +2,12 @@
 import Presets from "./components/Presets.vue";
 import Timer from "./components/Timer.vue";
 import Button from "./components/Button.vue";
+import SelectTimeModal from "./components/SelectTimeModal.vue";
 import { ref } from "vue";
 
 let idCounter = 0;
+
+const showModal = ref(false);
 
 const dummyPresets = ref([
   { id: idCounter++, time: "1:12:34" },
@@ -23,6 +26,10 @@ function addDummyPreset() {
   dummyPresets.value.push({ id: idCounter++, time: "2:77:37" });
 }
 
+function openSetTimeWindow() {
+  showModal.value = true;
+}
+
 </script>
 
 <template>
@@ -30,7 +37,7 @@ function addDummyPreset() {
     <div class="app">
       <Presets v-model:presets="dummyPresets" @delete-preset="deletePreset"/>
       <div class="buttons">
-        <Button text="Set time"/>
+        <Button text="Set time" @click="openSetTimeWindow"/>
         <Button text="Start/stop"/>
         <Button text="Reset"/>
         <Button text="Save preset" @click="addDummyPreset"/>
@@ -40,6 +47,9 @@ function addDummyPreset() {
       </div>
     </div>
   </div>
+  <Transition>
+    <SelectTimeModal v-if="showModal" @close="showModal = false"/>
+  </Transition>
 </template>
 
 <style scoped>
@@ -59,6 +69,8 @@ function addDummyPreset() {
   gap: 1em;
   flex-direction: row;
 }
+
+
 
 @media screen and (min-width: 460px) {
   .app {
