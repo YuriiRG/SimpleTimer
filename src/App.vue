@@ -30,6 +30,7 @@ function addDummyPreset() {
     <div class="app">
       <Presets v-model:presets="dummyPresets" @delete-preset="deletePreset"/>
       <div class="buttons">
+        <Button text="Set time"/>
         <Button text="Start/stop"/>
         <Button text="Reset"/>
         <Button text="Save preset" @click="addDummyPreset"/>
