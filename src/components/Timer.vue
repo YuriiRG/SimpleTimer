@@ -7,20 +7,21 @@ const percent = ref(123);
 <template>
   <div class="timer">
     <div class="text">
-      {{percent}}
+      01:30:12
     </div>
   </div>
 </template>
 
 <style scoped>
 .timer {
-  width: 10em;
-  height: 10em;
+  width: 15em;
+  height: 15em;
   position: relative;
   border-radius: 50%;
   background: conic-gradient(green v-bind('`${percent}deg`'), lightgrey v-bind('`${percent}deg`') 360deg);
 }
 .text {
+  user-select: none;
   --timer-line-width: 10%;
   position: absolute;
   display: flex;
@@ -32,5 +33,6 @@ const percent = ref(123);
   justify-content: center;
   background: #fff;
   border-radius: 50%;
+  font-size: 40px;
 }
 </style>
