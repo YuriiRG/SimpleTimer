@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: "Build the app"
+    name: Build the project
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
