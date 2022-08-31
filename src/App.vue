@@ -46,7 +46,6 @@ function openSetTimeWindow() {
         <Timer/>
       </div>
     </div>
-  </div>
   <Transition>
     <SelectTimeModal v-if="showModal" @close="showModal = false"/>
   </Transition>
