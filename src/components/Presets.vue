@@ -19,30 +19,14 @@ function deletePreset(id: number): void {
   emit("deletePreset", id);
 }
 
-const showPlaceholder = ref(false);
-
-function updateShowPlaceholder(length: number): void {
-  if (length === 0) {
-    setTimeout(() => {
-      showPlaceholder.value = true;
-    }, 100);
-  } else {
-    showPlaceholder.value = false;
-  }
-}
-
-watch(props, (newProps) => {
-  updateShowPlaceholder(newProps.presets.length);
-});
-
 </script>
 
 <template>
   <div class="presets">
-    <TransitionGroup v-if="!showPlaceholder">
+    <TransitionGroup>
       <Preset v-for="p in presets" :data="p" @delete="deletePreset" :key="p.id"/>
     </TransitionGroup>
-    <div v-else class="placeholder">
+    <div class="placeholder">
       No presets
     </div>
   </div>
@@ -50,6 +34,7 @@ watch(props, (newProps) => {
 
 <style scoped>
 .presets {
+  position: relative;
   --p-top: 0.4em;
   --p-bottom: 0.4em;
   --p-left: 0.8em;
@@ -64,11 +49,10 @@ watch(props, (newProps) => {
   padding-bottom: var(--p-bottom);
   padding-left: var(--p-left);
   padding-right: var(--p-right);
-  
-
   display: flex;
   flex-direction: column;
   align-self: center;
+  min-height: 2em;
 }
 
 @media screen and (min-width: 460px) {
@@ -82,6 +66,8 @@ watch(props, (newProps) => {
 }
 
 .placeholder {
+  position: absolute;
+  z-index: 0;
   padding: 0.4em;
 }
 

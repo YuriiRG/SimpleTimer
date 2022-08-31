@@ -45,6 +45,8 @@ const emit = defineEmits<{
   opacity: 1;
   margin-top: 0.2em;
   margin-bottom: 0.2em;
+  z-index: 1;
+  background: #fff;
 }
 .string:hover {
   background-color: #eee;
@@ -57,7 +59,7 @@ const emit = defineEmits<{
 }
 
 .v-enter-active, .v-leave-active {
-  transition: all 0.1s ease !important;
+  transition: all 0.2s ease !important;
 }
 
 .v-enter-from, .v-leave-to {

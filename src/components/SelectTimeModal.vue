@@ -41,6 +41,7 @@ const emit = defineEmits<{
   left: 0;
   top: 0;
   background: #0005;
+  z-index: 999;
 }
 .modal-window {
   background: #fff;
