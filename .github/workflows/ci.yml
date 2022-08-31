@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: "Build the app"
+    name: Build the project
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -21,7 +21,7 @@ jobs:
           version: latest
       
       - name: Install dependencies
-          run: pnpm install
+        run: pnpm install
   
       - name: Build project
-          run: pnpm build
+        run: pnpm build
