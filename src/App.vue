@@ -2,7 +2,6 @@
   <div class="container">
     <div class="app">
       dummy dsfsdf
-    </div>
   </div>
 </template>
 
