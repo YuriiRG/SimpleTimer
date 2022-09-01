@@ -1,8 +1,8 @@
 # Simple timer
 
-Simple timer written in Vue. This project is made by me (YuriiRG) to learn how to use Vue, TypeScript and Github Workflow.
+Simple timer written in Vue. This project is made by me (YuriiRG) to learn how to use Vue, TypeScript, Github Workflow and Github Actions.
 
-I am going to host the app on Github Pages but I haven't set up deployment yet.
+This app is hosted on Github Pages. [Link](https://YuriiRG.github.io/SimpleTimer/)
 
 ## Recommended IDE Setup
 
