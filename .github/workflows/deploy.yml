@@ -7,21 +7,19 @@ on:
   workflow_call:
 
 jobs:
+  build:
+    uses: ./.github/workflows/build.yml
   deploy:
     name: Deploy to Github Pages
-    
+    needs: build
     permissions:
       pages: write
       id-token: write
-
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/workflows/build.yml
       - name: Deploy the project
         id: deployment
         uses: actions/deploy-pages@v1
