@@ -41,7 +41,7 @@ function openSetTimeWindow() {
       <div class="buttons">
         <Button text="Set time" @click="openSetTimeWindow"/>
         <Button text="Start/stop"/>
-        <Button text="Reset"/>
+        <Button :text="time.toString()"/>
         <Button text="Save preset" @click="addDummyPreset"/>
       </div>
       <div class="timer">

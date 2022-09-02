@@ -15,8 +15,24 @@ const seconds = ref(props.time % 60);
 const minutes = ref(((props.time - seconds.value) / 60) % 60);
 const hours   = ref((props.time - (minutes.value * 60) - seconds.value) / (60 * 60));
 
-let onInput = () => {
+function onInput(): void {
+  if (!isValidTime(seconds.value)) {
+    return;
+  }
+  if (!isValidTime(minutes.value)) {
+    return;
+  }
+  if (!isValidTime(hours.value)) {
+    return;
+  }
   emit("update:time", hours.value*60*60 + minutes.value*60 + seconds.value);
+}
+
+function isValidTime(num: number): boolean {
+  if (Math.round(num) !== num || num < 0 || num >= 60) {
+    return false;
+  }
+  return true;
 }
 
 watch(seconds, onInput);
@@ -30,23 +46,29 @@ watch(hours,   onInput);
       <div class="time-input-container">
         <div>
           <label>Hours</label>
-          <input type="number" class="time-input" placeholder="hh"
-                 :value="hours"
-                 @input="hours = Number(($event.target as HTMLInputElement).value)"/>
+          <input type="number"
+                 class="time-input"
+                 placeholder="hh"
+                 min="0" max="59"
+                 v-model="hours"/>
         </div>
         <span class="separator">:</span>
         <div>
           <label>Minutes</label>
-          <input type="number" class="time-input" placeholder="mm"
-                 :value="minutes"
-                 @input="minutes = Number(($event.target as HTMLInputElement).value)"/>
+          <input type="number"
+                 class="time-input"
+                 placeholder="mm"
+                 min="0" max="59"
+                 v-model="minutes"/>
         </div>
         <span class="separator">:</span>
         <div>
           <label>Seconds</label>
-          <input type="number" class="time-input" placeholder="ss"
-                 :value="seconds"
-                 @input="seconds = Number(($event.target as HTMLInputElement).value)"/>
+          <input type="number"
+                 class="time-input"
+                 placeholder="ss"
+                 min="0" max="59"
+                 v-model="seconds"/>
         </div>
       </div>
       <Button text="Close" @click="emit('close')"/>
