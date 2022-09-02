@@ -7,6 +7,8 @@ import { ref } from "vue";
 
 let idCounter = 0;
 
+const time = ref(0);
+
 const showModal = ref(false);
 
 const dummyPresets = ref([
@@ -48,7 +50,7 @@ function openSetTimeWindow() {
     </div>
   </div>
   <Transition>
-    <SelectTimeModal v-if="showModal" @close="showModal = false"/>
+    <SelectTimeModal v-model:time="time" v-if="showModal" @close="showModal = false"/>
   </Transition>
 </template>
 

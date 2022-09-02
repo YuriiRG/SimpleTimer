@@ -1,11 +1,27 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { ref, watch } from 'vue';
 import Button from './Button.vue';
 
-const emit = defineEmits<{
-  (e: "close"): void
+const props = defineProps<{
+  time: number
 }>();
 
+const emit = defineEmits<{
+  (e: "close"): void;
+  (e: "update:time", newValue: number): void;
+}>();
+
+const seconds = ref(props.time % 60);
+const minutes = ref(((props.time - seconds.value) / 60) % 60);
+const hours   = ref((props.time - (minutes.value * 60) - seconds.value) / (60 * 60));
+
+let onInput = () => {
+  emit("update:time", hours.value*60*60 + minutes.value*60 + seconds.value);
+}
+
+watch(seconds, onInput);
+watch(minutes, onInput);
+watch(hours,   onInput);
 </script>
 
 <template>
@@ -14,17 +30,23 @@ const emit = defineEmits<{
       <div class="time-input-container">
         <div>
           <label>Hours</label>
-          <input type="number" class="time-input" placeholder="hh"/>
+          <input type="number" class="time-input" placeholder="hh"
+                 :value="hours"
+                 @input="hours = Number(($event.target as HTMLInputElement).value)"/>
         </div>
         <span class="separator">:</span>
         <div>
           <label>Minutes</label>
-          <input type="number" class="time-input" placeholder="mm"/>
+          <input type="number" class="time-input" placeholder="mm"
+                 :value="minutes"
+                 @input="minutes = Number(($event.target as HTMLInputElement).value)"/>
         </div>
         <span class="separator">:</span>
         <div>
           <label>Seconds</label>
-          <input type="number" class="time-input" placeholder="ss"/>
+          <input type="number" class="time-input" placeholder="ss"
+                 :value="seconds"
+                 @input="seconds = Number(($event.target as HTMLInputElement).value)"/>
         </div>
       </div>
       <Button text="Close" @click="emit('close')"/>
