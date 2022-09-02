@@ -15,11 +15,13 @@ const emit = defineEmits<{
         <div>
           <label>Hours</label>
           <input type="number" class="time-input" placeholder="hh"/>
-        </div> <span class="separator">:</span>
+        </div>
+        <span class="separator">:</span>
         <div>
           <label>Minutes</label>
           <input type="number" class="time-input" placeholder="mm"/>
-        </div> <span class="separator">:</span>
+        </div>
+        <span class="separator">:</span>
         <div>
           <label>Seconds</label>
           <input type="number" class="time-input" placeholder="ss"/>
