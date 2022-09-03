@@ -41,10 +41,10 @@ function openSetTimeWindow() {
     <div class="app">
       <Presets v-model:presets="dummyPresets" @delete-preset="deletePreset"/>
       <div class="buttons">
-        <Button text="Set time" @click="openSetTimeWindow"/>
-        <Button text="Start/stop" @click="isRunning = !isRunning"/>
-        <Button text="Reset"/>
-        <Button text="Save preset" @click="addDummyPreset"/>
+        <Button text="Set time" @click="openSetTimeWindow" :disabled="isRunning"/>
+        <Button text="Start" @click="isRunning = true" :disabled="isRunning"/>
+        <Button text="Reset" :disabled="true"/>
+        <Button text="Save preset" @click="addDummyPreset" :disabled="true"/>
       </div>
       <div class="timer">
         <Timer :time="time" v-model:running="isRunning"/>

@@ -1,6 +1,7 @@
 <script setup lang='ts'>
-defineProps<{
-  text: string
+const props = defineProps<{
+  text: string,
+  disabled?: boolean
 }>();
 
 const emit = defineEmits<{
@@ -10,7 +11,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <button @click="emit('click')" class="button">{{text}}</button>
+  <button @click="emit('click')" class="button" :disabled="props.disabled">{{text}}</button>
 </template>
 
 <style scoped>
@@ -26,12 +27,12 @@ const emit = defineEmits<{
                 var(--sm-shadow-color);
     transition: background-color 0.15s;
   }
-  .button:hover {
+  .button:hover:not([disabled]) {
     background-color: #eee;
     transition: background-color 0.15s, transform 0.05s;
   }
 
-  .button:hover:active {
+  .button:hover:active:not([disabled]) {
     background-color: #e5e5e5;
     transform: scale(0.95);
   }

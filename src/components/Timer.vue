@@ -45,7 +45,7 @@ const timeLeftString = computed(() => TimeToString(timeLeft.value));
 
 const degree = computed(() => {
   if (props.time === 0) {
-    return 360;
+    return 0;
   } else {
     return (timeLeft.value/props.time)*360;
   }
