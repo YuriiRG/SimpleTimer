@@ -9,6 +9,8 @@ let idCounter = 0;
 
 const time = ref(0);
 
+const isRunning = ref(false);
+
 const showModal = ref(false);
 
 const dummyPresets = ref([
@@ -40,12 +42,12 @@ function openSetTimeWindow() {
       <Presets v-model:presets="dummyPresets" @delete-preset="deletePreset"/>
       <div class="buttons">
         <Button text="Set time" @click="openSetTimeWindow"/>
-        <Button text="Start/stop"/>
+        <Button text="Start/stop" @click="isRunning = !isRunning"/>
         <Button text="Reset"/>
         <Button text="Save preset" @click="addDummyPreset"/>
       </div>
       <div class="timer">
-        <Timer :time="time"/>
+        <Timer :time="time" v-model:running="isRunning"/>
       </div>
     </div>
   </div>
