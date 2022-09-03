@@ -41,11 +41,11 @@ function openSetTimeWindow() {
       <div class="buttons">
         <Button text="Set time" @click="openSetTimeWindow"/>
         <Button text="Start/stop"/>
-        <Button :text="time.toString()"/>
+        <Button text="Reset"/>
         <Button text="Save preset" @click="addDummyPreset"/>
       </div>
       <div class="timer">
-        <Timer/>
+        <Timer :time="time"/>
       </div>
     </div>
   </div>
