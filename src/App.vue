@@ -5,6 +5,11 @@ import Button from "./components/Button.vue";
 import SelectTimeModal from "./components/SelectTimeModal.vue";
 import { ref } from "vue";
 
+interface Preset {
+  time: string,
+  id: number
+}
+
 let idCounter = 0;
 
 const time = ref(0);
@@ -13,14 +18,7 @@ const isRunning = ref(false);
 
 const showModal = ref(false);
 
-const dummyPresets = ref([
-  { id: idCounter++, time: "1:12:34" },
-  { id: idCounter++, time: "2:13:37" },
-  { id: idCounter++, time: "2:77:37" },
-  { id: idCounter++, time: "2:77:37" },
-  { id: idCounter++, time: "2:77:37" },
-  { id: idCounter++, time: "2:77:37" },
-]);
+const dummyPresets = ref([] as Preset[]);
 
 function deletePreset(id: number): void {
   dummyPresets.value = dummyPresets.value.filter(p => p.id !== id);
