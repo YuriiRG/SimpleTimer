@@ -1,11 +1,43 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { ref, watch } from 'vue';
 import Button from './Button.vue';
 
-const emit = defineEmits<{
-  (e: "close"): void
+const props = defineProps<{
+  time: number
 }>();
 
+const emit = defineEmits<{
+  (e: "close"): void;
+  (e: "update:time", newValue: number): void;
+}>();
+
+const seconds = ref(props.time % 60);
+const minutes = ref(((props.time - seconds.value) / 60) % 60);
+const hours   = ref((props.time - (minutes.value * 60) - seconds.value) / (60 * 60));
+
+function onInput(): void {
+  if (!isValidTime(seconds.value)) {
+    return;
+  }
+  if (!isValidTime(minutes.value)) {
+    return;
+  }
+  if (!isValidTime(hours.value)) {
+    return;
+  }
+  emit("update:time", hours.value*60*60 + minutes.value*60 + seconds.value);
+}
+
+function isValidTime(num: number): boolean {
+  if (Math.round(num) !== num || num < 0 || num >= 60) {
+    return false;
+  }
+  return true;
+}
+
+watch(seconds, onInput);
+watch(minutes, onInput);
+watch(hours,   onInput);
 </script>
 
 <template>
@@ -14,15 +46,29 @@ const emit = defineEmits<{
       <div class="time-input-container">
         <div>
           <label>Hours</label>
-          <input type="number" class="time-input" placeholder="hh"/>
-        </div> <span class="separator">:</span>
+          <input type="number"
+                 class="time-input"
+                 placeholder="hh"
+                 min="0" max="59"
+                 v-model="hours"/>
+        </div>
+        <span class="separator">:</span>
         <div>
           <label>Minutes</label>
-          <input type="number" class="time-input" placeholder="mm"/>
-        </div> <span class="separator">:</span>
+          <input type="number"
+                 class="time-input"
+                 placeholder="mm"
+                 min="0" max="59"
+                 v-model="minutes"/>
+        </div>
+        <span class="separator">:</span>
         <div>
           <label>Seconds</label>
-          <input type="number" class="time-input" placeholder="ss"/>
+          <input type="number"
+                 class="time-input"
+                 placeholder="ss"
+                 min="0" max="59"
+                 v-model="seconds"/>
         </div>
       </div>
       <Button text="Close" @click="emit('close')"/>

@@ -5,18 +5,20 @@ import Button from "./components/Button.vue";
 import SelectTimeModal from "./components/SelectTimeModal.vue";
 import { ref } from "vue";
 
+interface Preset {
+  time: string,
+  id: number
+}
+
 let idCounter = 0;
+
+const time = ref(0);
+
+const isRunning = ref(false);
 
 const showModal = ref(false);
 
-const dummyPresets = ref([
-  { id: idCounter++, time: "1:12:34" },
-  { id: idCounter++, time: "2:13:37" },
-  { id: idCounter++, time: "2:77:37" },
-  { id: idCounter++, time: "2:77:37" },
-  { id: idCounter++, time: "2:77:37" },
-  { id: idCounter++, time: "2:77:37" },
-]);
+const dummyPresets = ref([] as Preset[]);
 
 function deletePreset(id: number): void {
   dummyPresets.value = dummyPresets.value.filter(p => p.id !== id);
@@ -37,18 +39,18 @@ function openSetTimeWindow() {
     <div class="app">
       <Presets v-model:presets="dummyPresets" @delete-preset="deletePreset"/>
       <div class="buttons">
-        <Button text="Set time" @click="openSetTimeWindow"/>
-        <Button text="Start/stop"/>
-        <Button text="Reset"/>
-        <Button text="Save preset" @click="addDummyPreset"/>
+        <Button text="Set time" @click="openSetTimeWindow" :disabled="isRunning"/>
+        <Button text="Start" @click="isRunning = true" :disabled="isRunning"/>
+        <Button text="Reset" :disabled="true"/>
+        <Button text="Save preset" @click="addDummyPreset" :disabled="true"/>
       </div>
       <div class="timer">
-        <Timer/>
+        <Timer :time="time" v-model:running="isRunning"/>
       </div>
     </div>
   </div>
   <Transition>
-    <SelectTimeModal v-if="showModal" @close="showModal = false"/>
+    <SelectTimeModal v-model:time="time" v-if="showModal" @close="showModal = false"/>
   </Transition>
 </template>
 
