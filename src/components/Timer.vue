@@ -3,10 +3,13 @@ import { computed, ref, watch } from 'vue';
 
 const props = defineProps<{
   time: number,
+  //timeLeft: number,
   running: boolean
 }>();
 
 const emit = defineEmits<{
+  (e: "update:time", newValue: number): void;
+  //(e: "update:timeLeft", newValue: number): void;
   (e: "update:running", newValue: boolean): void;
 }>();
 
@@ -25,6 +28,30 @@ watch(() => props.running, newValue => {
 watch(() => props.time, newValue => {
   timeLeft.value = newValue
 });
+
+let startTime: number = -1;
+
+function initTimer() {
+  requestAnimationFrame(animateTimer);
+}
+
+function animateTimer(now: number) {
+  if (startTime === -1) {
+    startTime = now;
+    requestAnimationFrame(animateTimer);
+    return;
+  }
+  const targetTimeLeft = (props.time-(now-startTime)/1000);
+  if (targetTimeLeft <= 0) {
+    timeLeft.value = 0;
+    emit("update:running", false);
+    startTime = -1;
+    return;
+  }
+  timeLeft.value = targetTimeLeft;
+  requestAnimationFrame(animateTimer);
+}
+
 
 function TimeToString(t: number): string {
   t = Math.ceil(t);
@@ -50,32 +77,6 @@ const degree = computed(() => {
     return (timeLeft.value/props.time)*360;
   }
 });
-
-let startTime: number = -1;
-
-function initTimer() {
-  requestAnimationFrame(animateTimer);
-}
-
-function animateTimer(now: number) {
-  if (startTime === -1) {
-    startTime = now;
-    requestAnimationFrame(animateTimer);
-    return;
-  }
-  const targetTimeLeft = (props.time-(now-startTime)/1000);
-  if (targetTimeLeft <= 0) {
-    timeLeft.value = 0;
-    setTimeout(() => {
-      timeLeft.value = props.time;
-      emit("update:running", false);
-    }, 2000)
-    startTime = -1;
-    return;
-  }
-  timeLeft.value = targetTimeLeft;
-  requestAnimationFrame(animateTimer);
-}
 
 </script>
 
