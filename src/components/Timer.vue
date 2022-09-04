@@ -45,7 +45,7 @@ const timeLeftString = computed(() => TimeToString(timeLeft.value));
 
 const degree = computed(() => {
   if (props.time === 0) {
-    return 0;
+    return 360;
   } else {
     return (timeLeft.value/props.time)*360;
   }
@@ -66,8 +66,11 @@ function animateTimer(now: number) {
   const targetTimeLeft = (props.time-(now-startTime)/1000);
   if (targetTimeLeft <= 0) {
     timeLeft.value = 0;
+    setTimeout(() => {
+      timeLeft.value = props.time;
+      emit("update:running", false);
+    }, 2000)
     startTime = -1;
-    emit("update:running", false);
     return;
   }
   timeLeft.value = targetTimeLeft;
