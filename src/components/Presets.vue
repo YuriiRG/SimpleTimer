@@ -2,13 +2,10 @@
 import { watch, ref } from 'vue';
 import Preset from './Preset.vue';
 
-interface Preset {
-  time: string,
-  id: number
-}
+import { IPreset } from "../types";
 
 const props = defineProps<{
-  presets: Array<Preset>
+  presets: Array<IPreset>
 }>();
 
 const emit = defineEmits<{

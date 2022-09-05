@@ -3,22 +3,22 @@ import Presets from "./components/Presets.vue";
 import Timer from "./components/Timer.vue";
 import Button from "./components/Button.vue";
 import SelectTimeModal from "./components/SelectTimeModal.vue";
+import { stateType, IPreset } from "./types";
 import { ref } from "vue";
 
-interface Preset {
-  time: string,
-  id: number
-}
+
 
 let idCounter = 0;
 
 const time = ref(0);
 
-const isRunning = ref(false);
+const timeLeft = ref(0);
+
+const timerState = ref("idle" as stateType);
 
 const showModal = ref(false);
 
-const dummyPresets = ref([] as Preset[]);
+const dummyPresets = ref([] as IPreset[]);
 
 function deletePreset(id: number): void {
   dummyPresets.value = dummyPresets.value.filter(p => p.id !== id);
@@ -32,6 +32,19 @@ function openSetTimeWindow() {
   showModal.value = true;
 }
 
+function onStartPauseClick() {
+  if (timerState.value !== "running") {
+    timerState.value = "running";
+  } else {
+    timerState.value = "paused";
+  }
+}
+
+function onResetClick() {
+  timerState.value = "idle";
+  timeLeft.value = time.value;
+}
+
 </script>
 
 <template>
@@ -39,13 +52,21 @@ function openSetTimeWindow() {
     <div class="app">
       <Presets v-model:presets="dummyPresets" @delete-preset="deletePreset"/>
       <div class="buttons">
-        <Button text="Set time" @click="openSetTimeWindow" :disabled="isRunning"/>
-        <Button text="Start" @click="isRunning = true" :disabled="isRunning"/>
-        <Button text="Reset" :disabled="true"/>
-        <Button text="Save preset" @click="addDummyPreset" :disabled="true"/>
+        <Button text="Set time"
+                @click="openSetTimeWindow"
+                :disabled="timerState !== 'idle'"/>
+        <Button :text="timerState === 'running' ? 'Pause' : 'Start'"
+                @click="onStartPauseClick"
+                :disabled="!['idle', 'paused', 'running'].includes(timerState)"/>
+        <Button text="Reset"
+                @click="onResetClick"
+                :disabled="!['finished', 'paused'].includes(timerState)"/>
+        <Button text="Add preset"
+                @click="addDummyPreset"
+                :disabled="true"/>
       </div>
       <div class="timer">
-        <Timer :time="time" v-model:running="isRunning"/>
+        <Timer v-model:time="time" v-model:timeLeft="timeLeft" v-model:state="timerState"/>
       </div>
     </div>
   </div>

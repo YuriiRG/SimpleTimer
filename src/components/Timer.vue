@@ -1,55 +1,68 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, ref, watch, watchEffect } from 'vue';
+
+import { stateType } from '../types';
 
 const props = defineProps<{
   time: number,
-  //timeLeft: number,
-  running: boolean
+  timeLeft: number,
+  state: stateType
 }>();
 
 const emit = defineEmits<{
   (e: "update:time", newValue: number): void;
-  //(e: "update:timeLeft", newValue: number): void;
-  (e: "update:running", newValue: boolean): void;
+  (e: "update:timeLeft", newValue: number): void;
+  (e: "update:state", newValue: stateType): void;
 }>();
 
-const timeLeft = ref(props.time);
+let pauseStartTime = -1;
+let startTime = -1;
 
-if (props.running) {
-  initTimer();
-}
-
-watch(() => props.running, newValue => {
-  if (newValue) {
+watchEffect(() => {
+  if (props.state === "running") {
     initTimer();
+  } else if (props.state === "idle") {
+    startTime = -1;
+    pauseStartTime = -1;
   }
 })
 
 watch(() => props.time, newValue => {
-  timeLeft.value = newValue
+  emit("update:timeLeft", newValue);
 });
-
-let startTime: number = -1;
 
 function initTimer() {
   requestAnimationFrame(animateTimer);
 }
 
 function animateTimer(now: number) {
-  if (startTime === -1) {
-    startTime = now;
+  if (props.state === "running") {
+    if (startTime === -1) {
+      startTime = now;
+      requestAnimationFrame(animateTimer);
+      return;
+    }
+    if (pauseStartTime !== -1) {
+      console.log("pause ended");
+      startTime += (now-pauseStartTime);
+      pauseStartTime = -1;
+    }
+    const targetTimeLeft = (props.time-(now-startTime)/1000);
+    if (targetTimeLeft <= 0) {
+      emit("update:timeLeft", 0);
+      emit("update:state", "finished");
+      startTime = -1;
+      return;
+    }
+    emit("update:timeLeft", targetTimeLeft);
     requestAnimationFrame(animateTimer);
-    return;
-  }
-  const targetTimeLeft = (props.time-(now-startTime)/1000);
-  if (targetTimeLeft <= 0) {
-    timeLeft.value = 0;
-    emit("update:running", false);
+  } else if (props.state === "paused") {
+    console.log("pause started");
+    pauseStartTime = now;
+  } else {
     startTime = -1;
-    return;
+    emit("update:timeLeft", props.time);
   }
-  timeLeft.value = targetTimeLeft;
-  requestAnimationFrame(animateTimer);
 }
 
 
@@ -68,13 +81,17 @@ function AddZeroToNumberString(num: number): string {
   return (num >= 10) ? `${num}` : `0${num}`;
 }
 
-const timeLeftString = computed(() => TimeToString(timeLeft.value));
+const timeLeftString = computed(() => TimeToString(props.timeLeft));
 
 const degree = computed(() => {
   if (props.time === 0) {
-    return 360;
+    if (props.state === "idle") {
+      return 360;
+    } else {
+      return 0;
+    }
   } else {
-    return (timeLeft.value/props.time)*360;
+    return (props.timeLeft/props.time)*360;
   }
 });
 
