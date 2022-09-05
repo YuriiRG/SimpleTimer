@@ -1,24 +1,22 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, ref, watch, watchEffect } from 'vue';
+
+import { stateType } from '../types';
 
 const props = defineProps<{
   time: number,
   timeLeft: number,
-  running: boolean
+  state: stateType
 }>();
 
 const emit = defineEmits<{
   (e: "update:time", newValue: number): void;
   (e: "update:timeLeft", newValue: number): void;
-  (e: "update:running", newValue: boolean): void;
+  (e: "update:state", newValue: stateType): void;
 }>();
 
-if (props.running) {
-  initTimer();
-}
-
-watch(() => props.running, newValue => {
-  if (newValue) {
+watchEffect(() => {
+  if (props.state == "running") {
     initTimer();
   }
 })
@@ -42,7 +40,7 @@ function animateTimer(now: number) {
   const targetTimeLeft = (props.time-(now-startTime)/1000);
   if (targetTimeLeft <= 0) {
     emit("update:timeLeft", 0);
-    emit("update:running", false);
+    emit("update:state", "finished");
     startTime = -1;
     return;
   }

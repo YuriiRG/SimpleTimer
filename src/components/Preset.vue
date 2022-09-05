@@ -1,11 +1,8 @@
 <script setup lang="ts">
-interface Preset {
-  time: string,
-  id: number
-}
+import { IPreset } from "../types";
 
 defineProps<{
-  data: Preset
+  data: IPreset
 }>();
 
 const emit = defineEmits<{

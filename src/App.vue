@@ -3,12 +3,10 @@ import Presets from "./components/Presets.vue";
 import Timer from "./components/Timer.vue";
 import Button from "./components/Button.vue";
 import SelectTimeModal from "./components/SelectTimeModal.vue";
+import { stateType, IPreset } from "./types";
 import { ref } from "vue";
 
-interface Preset {
-  time: string,
-  id: number
-}
+
 
 let idCounter = 0;
 
@@ -16,11 +14,11 @@ const time = ref(0);
 
 const timeLeft = ref(0);
 
-const isRunning = ref(false);
+const timerState = ref("idle" as stateType);
 
 const showModal = ref(false);
 
-const dummyPresets = ref([] as Preset[]);
+const dummyPresets = ref([] as IPreset[]);
 
 function deletePreset(id: number): void {
   dummyPresets.value = dummyPresets.value.filter(p => p.id !== id);
@@ -41,13 +39,13 @@ function openSetTimeWindow() {
     <div class="app">
       <Presets v-model:presets="dummyPresets" @delete-preset="deletePreset"/>
       <div class="buttons">
-        <Button text="Set time" @click="openSetTimeWindow" :disabled="isRunning"/>
-        <Button text="Start" @click="isRunning = true" :disabled="isRunning"/>
-        <Button text="Reset" :disabled="true"/>
+        <Button text="Set time" @click="openSetTimeWindow"/>
+        <Button text="Start" @click="timerState = 'running'"/>
+        <Button text="Reset" @click="timerState = 'idle'"/>
         <Button text="Save preset" @click="addDummyPreset" :disabled="true"/>
       </div>
       <div class="timer">
-        <Timer v-model:time="time" v-model:timeLeft="timeLeft" v-model:running="isRunning"/>
+        <Timer v-model:time="time" v-model:timeLeft="timeLeft" v-model:state="timerState"/>
       </div>
     </div>
   </div>
