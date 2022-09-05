@@ -61,7 +61,7 @@ function onResetClick() {
         <Button text="Reset"
                 @click="onResetClick"
                 :disabled="!['finished', 'paused'].includes(timerState)"/>
-        <Button :text="timerState"
+        <Button text="Add preset"
                 @click="addDummyPreset"
                 :disabled="true"/>
       </div>
