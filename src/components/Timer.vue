@@ -16,7 +16,7 @@ const emit = defineEmits<{
 }>();
 
 watchEffect(() => {
-  if (props.state == "running") {
+  if (props.state === "running") {
     initTimer();
   }
 })
@@ -32,20 +32,25 @@ function initTimer() {
 }
 
 function animateTimer(now: number) {
-  if (startTime === -1) {
-    startTime = now;
+  if (props.state === "running") {
+    if (startTime === -1) {
+      startTime = now;
+      requestAnimationFrame(animateTimer);
+      return;
+    }
+    const targetTimeLeft = (props.time-(now-startTime)/1000);
+    if (targetTimeLeft <= 0) {
+      emit("update:timeLeft", 0);
+      emit("update:state", "finished");
+      startTime = -1;
+      return;
+    }
+    emit("update:timeLeft", targetTimeLeft);
     requestAnimationFrame(animateTimer);
-    return;
-  }
-  const targetTimeLeft = (props.time-(now-startTime)/1000);
-  if (targetTimeLeft <= 0) {
-    emit("update:timeLeft", 0);
-    emit("update:state", "finished");
+  } else {
     startTime = -1;
-    return;
+    emit("update:timeLeft", props.time);
   }
-  emit("update:timeLeft", targetTimeLeft);
-  requestAnimationFrame(animateTimer);
 }
 
 
@@ -68,7 +73,11 @@ const timeLeftString = computed(() => TimeToString(props.timeLeft));
 
 const degree = computed(() => {
   if (props.time === 0) {
-    return 360;
+    if (props.state === "idle") {
+      return 360;
+    } else {
+      return 0;
+    }
   } else {
     return (props.timeLeft/props.time)*360;
   }
