@@ -3,6 +3,7 @@ import Presets from "./components/Presets.vue";
 import Timer from "./components/Timer.vue";
 import Button from "./components/Button.vue";
 import SelectTimeModal from "./components/SelectTimeModal.vue";
+import { secondsToString } from "./timeConvert";
 import { stateType, IPreset } from "./types";
 import { ref } from "vue";
 
@@ -24,8 +25,8 @@ function deletePreset(id: number): void {
   dummyPresets.value = dummyPresets.value.filter(p => p.id !== id);
 }
 
-function addDummyPreset() {
-  dummyPresets.value.push({ id: idCounter++, time: "2:77:37" });
+function addPreset() {
+  dummyPresets.value.push({ id: idCounter++, time: secondsToString(time.value) });
 }
 
 function openSetTimeWindow() {
@@ -62,8 +63,8 @@ function onResetClick() {
                 @click="onResetClick"
                 :disabled="!['finished', 'paused'].includes(timerState)"/>
         <Button text="Add preset"
-                @click="addDummyPreset"
-                :disabled="true"/>
+                @click="addPreset"
+                :disabled="!(timerState === 'idle')"/>
       </div>
       <div class="timer">
         <Timer v-model:time="time" v-model:timeLeft="timeLeft" v-model:state="timerState"/>
