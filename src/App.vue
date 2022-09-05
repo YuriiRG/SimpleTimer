@@ -90,7 +90,7 @@ function onResetClick() {
 .buttons {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 0.5em;
   flex-direction: row;
 }
 
@@ -114,6 +114,7 @@ function onResetClick() {
   }
   .buttons {
     flex-direction: column;
+    gap: 1em;
   }
 }
 </style>

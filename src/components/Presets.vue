@@ -22,9 +22,7 @@ function deletePreset(id: number): void {
     <TransitionGroup>
       <Preset v-for="p in presets" :data="p" @delete="deletePreset" :key="p.id"/>
     </TransitionGroup>
-    <div class="placeholder">
-      No presets
-    </div>
+    <div class="placeholder">No presets</div>
   </div>
 </template>
 
@@ -48,7 +46,7 @@ function deletePreset(id: number): void {
   display: flex;
   flex-direction: column;
   align-self: center;
-  min-height: 2em;
+  min-height: 10em;
 }
 
 @media screen and (min-width: 460px) {
@@ -65,6 +63,8 @@ function deletePreset(id: number): void {
   position: absolute;
   z-index: 0;
   padding: 0.4em;
+  color: gray;
+  user-select: none;
 }
 
 </style>
