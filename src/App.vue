@@ -33,7 +33,11 @@ function openSetTimeWindow() {
 }
 
 function onStartPauseClick() {
-  timerState.value = "running";
+  if (timerState.value !== "running") {
+    timerState.value = "running";
+  } else {
+    timerState.value = "paused";
+  }
 }
 
 function onResetClick() {
@@ -51,9 +55,9 @@ function onResetClick() {
         <Button text="Set time"
                 @click="openSetTimeWindow"
                 :disabled="timerState !== 'idle'"/>
-        <Button text="Start"
+        <Button :text="timerState === 'running' ? 'Pause' : 'Start'"
                 @click="onStartPauseClick"
-                :disabled="!['idle', 'paused'].includes(timerState)"/>
+                :disabled="!['idle', 'paused', 'running'].includes(timerState)"/>
         <Button text="Reset"
                 @click="onResetClick"
                 :disabled="!['finished', 'paused'].includes(timerState)"/>

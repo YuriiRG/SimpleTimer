@@ -15,17 +15,21 @@ const emit = defineEmits<{
   (e: "update:state", newValue: stateType): void;
 }>();
 
+let pauseStartTime = -1;
+let startTime = -1;
+
 watchEffect(() => {
   if (props.state === "running") {
     initTimer();
+  } else if (props.state === "idle") {
+    startTime = -1;
+    pauseStartTime = -1;
   }
 })
 
 watch(() => props.time, newValue => {
   emit("update:timeLeft", newValue);
 });
-
-let startTime: number = -1;
 
 function initTimer() {
   requestAnimationFrame(animateTimer);
@@ -38,6 +42,11 @@ function animateTimer(now: number) {
       requestAnimationFrame(animateTimer);
       return;
     }
+    if (pauseStartTime !== -1) {
+      console.log("pause ended");
+      startTime += (now-pauseStartTime);
+      pauseStartTime = -1;
+    }
     const targetTimeLeft = (props.time-(now-startTime)/1000);
     if (targetTimeLeft <= 0) {
       emit("update:timeLeft", 0);
@@ -47,6 +56,9 @@ function animateTimer(now: number) {
     }
     emit("update:timeLeft", targetTimeLeft);
     requestAnimationFrame(animateTimer);
+  } else if (props.state === "paused") {
+    console.log("pause started");
+    pauseStartTime = now;
   } else {
     startTime = -1;
     emit("update:timeLeft", props.time);
