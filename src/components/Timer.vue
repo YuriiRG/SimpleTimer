@@ -3,17 +3,15 @@ import { computed, ref, watch } from 'vue';
 
 const props = defineProps<{
   time: number,
-  //timeLeft: number,
+  timeLeft: number,
   running: boolean
 }>();
 
 const emit = defineEmits<{
   (e: "update:time", newValue: number): void;
-  //(e: "update:timeLeft", newValue: number): void;
+  (e: "update:timeLeft", newValue: number): void;
   (e: "update:running", newValue: boolean): void;
 }>();
-
-const timeLeft = ref(props.time);
 
 if (props.running) {
   initTimer();
@@ -26,7 +24,7 @@ watch(() => props.running, newValue => {
 })
 
 watch(() => props.time, newValue => {
-  timeLeft.value = newValue
+  emit("update:timeLeft", newValue);
 });
 
 let startTime: number = -1;
@@ -43,12 +41,12 @@ function animateTimer(now: number) {
   }
   const targetTimeLeft = (props.time-(now-startTime)/1000);
   if (targetTimeLeft <= 0) {
-    timeLeft.value = 0;
+    emit("update:timeLeft", 0);
     emit("update:running", false);
     startTime = -1;
     return;
   }
-  timeLeft.value = targetTimeLeft;
+  emit("update:timeLeft", targetTimeLeft);
   requestAnimationFrame(animateTimer);
 }
 
@@ -68,13 +66,13 @@ function AddZeroToNumberString(num: number): string {
   return (num >= 10) ? `${num}` : `0${num}`;
 }
 
-const timeLeftString = computed(() => TimeToString(timeLeft.value));
+const timeLeftString = computed(() => TimeToString(props.timeLeft));
 
 const degree = computed(() => {
   if (props.time === 0) {
     return 360;
   } else {
-    return (timeLeft.value/props.time)*360;
+    return (props.timeLeft/props.time)*360;
   }
 });
 

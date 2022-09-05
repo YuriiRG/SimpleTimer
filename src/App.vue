@@ -14,6 +14,8 @@ let idCounter = 0;
 
 const time = ref(0);
 
+const timeLeft = ref(0);
+
 const isRunning = ref(false);
 
 const showModal = ref(false);
@@ -45,7 +47,7 @@ function openSetTimeWindow() {
         <Button text="Save preset" @click="addDummyPreset" :disabled="true"/>
       </div>
       <div class="timer">
-        <Timer :time="time" v-model:running="isRunning"/>
+        <Timer v-model:time="time" v-model:timeLeft="timeLeft" v-model:running="isRunning"/>
       </div>
     </div>
   </div>
