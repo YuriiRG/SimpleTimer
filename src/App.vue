@@ -32,6 +32,15 @@ function openSetTimeWindow() {
   showModal.value = true;
 }
 
+function onStartPauseClick() {
+  timerState.value = "running";
+}
+
+function onResetClick() {
+  timerState.value = "idle";
+  timeLeft.value = time.value;
+}
+
 </script>
 
 <template>
@@ -39,10 +48,18 @@ function openSetTimeWindow() {
     <div class="app">
       <Presets v-model:presets="dummyPresets" @delete-preset="deletePreset"/>
       <div class="buttons">
-        <Button text="Set time" @click="openSetTimeWindow" :disabled="timerState !== 'idle'"/>
-        <Button text="Start" @click="timerState = 'running'" :disabled="!['idle', 'paused'].includes(timerState)"/>
-        <Button text="Reset" @click="timerState = 'idle'; timeLeft = time" :disabled="!['finished', 'paused'].includes(timerState)"/>
-        <Button :text="timerState" @click="addDummyPreset" :disabled="true"/>
+        <Button text="Set time"
+                @click="openSetTimeWindow"
+                :disabled="timerState !== 'idle'"/>
+        <Button text="Start"
+                @click="onStartPauseClick"
+                :disabled="!['idle', 'paused'].includes(timerState)"/>
+        <Button text="Reset"
+                @click="onResetClick"
+                :disabled="!['finished', 'paused'].includes(timerState)"/>
+        <Button :text="timerState"
+                @click="addDummyPreset"
+                :disabled="true"/>
       </div>
       <div class="timer">
         <Timer v-model:time="time" v-model:timeLeft="timeLeft" v-model:state="timerState"/>
