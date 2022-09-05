@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { watch, ref } from 'vue';
-import Preset from './Preset.vue';
+import Preset from './PresetItem.vue';
 
 import { IPreset } from "../types";
 
