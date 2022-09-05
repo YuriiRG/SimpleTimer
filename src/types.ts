@@ -1,6 +1,6 @@
 export type stateType = "idle" | "running" | "paused" | "finished"
 
 export interface IPreset {
-  time: string,
+  time: number,
   id: number
 }

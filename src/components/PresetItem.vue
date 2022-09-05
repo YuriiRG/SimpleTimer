@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { IPreset } from "../types";
-
+import { secondsToString } from "../timeConvert";
 defineProps<{
   data: IPreset
 }>();
@@ -13,7 +13,7 @@ const emit = defineEmits<{
 <template>
   <div class="string">
     <span>
-      {{data.time}}
+      {{ secondsToString(data.time) }}
     </span>
     <svg xmlns="http://www.w3.org/2000/svg"
           fill="currentColor"

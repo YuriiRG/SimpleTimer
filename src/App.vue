@@ -26,7 +26,7 @@ function deletePreset(id: number): void {
 }
 
 function addPreset() {
-  dummyPresets.value.push({ id: idCounter++, time: secondsToString(time.value) });
+  dummyPresets.value.push({ id: idCounter++, time: time.value });
 }
 
 function openSetTimeWindow() {
