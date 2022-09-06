@@ -33,7 +33,7 @@ function deletePreset(id: number): void {
   --p-bottom: 0.4em;
   --p-left: 0.8em;
   --p-right: 0.8em;
-  width: 6rem;
+  width: 6.5rem;
   border-radius: var(--sm-border-radius);
   box-shadow: var(--sm-shadow-x)
               var(--sm-shadow-y)

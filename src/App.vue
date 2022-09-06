@@ -3,7 +3,6 @@ import Presets from "./components/Presets.vue";
 import Timer from "./components/Timer.vue";
 import Button from "./components/Button.vue";
 import SelectTimeModal from "./components/SelectTimeModal.vue";
-import { secondsToString } from "./timeConvert";
 import { stateType, IPreset } from "./types";
 import { ref } from "vue";
 
