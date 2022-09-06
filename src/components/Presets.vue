@@ -33,7 +33,7 @@ function deletePreset(id: number): void {
   --p-bottom: 0.4em;
   --p-left: 0.8em;
   --p-right: 0.8em;
-  width: 8rem;
+  width: 6.5rem;
   border-radius: var(--sm-border-radius);
   box-shadow: var(--sm-shadow-x)
               var(--sm-shadow-y)
@@ -47,7 +47,6 @@ function deletePreset(id: number): void {
   flex-direction: column;
   align-self: center;
   min-height: 10em;
-  box-sizing: border-box;
 }
 
 @media screen and (min-width: 460px) {
