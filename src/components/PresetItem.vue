@@ -48,13 +48,13 @@ const emit = defineEmits<{
   background: #fff;
   user-select: none;
 }
-.string:hover:not([aria-disabled=true]) {
+.string:hover {
   background-color: #eee;
-  transition: all 0.2s;
 }
 
 .string:hover:active:not([aria-disabled=true]) {
   scale: 0.95;
+  transition: all 0.1s;
 }
 
 .string[aria-disabled=true] {
@@ -68,7 +68,7 @@ const emit = defineEmits<{
 }
 
 .v-enter-active, .v-leave-active {
-  transition: all 0.2s ease !important;
+  transition: all 0.2s;
 }
 
 .v-enter-from, .v-leave-to {
