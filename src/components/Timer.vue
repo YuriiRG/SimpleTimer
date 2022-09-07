@@ -72,7 +72,7 @@ function animateTimer(now: number) {
 }
 
 function playRing() {
-  let audio = new Audio('/ring.mp3');
+  let audio = new Audio('/SimpleTimer/ring.mp3');
   audio.play();
 }
 
