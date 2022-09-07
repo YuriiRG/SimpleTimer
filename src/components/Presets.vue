@@ -8,11 +8,16 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: "deletePreset", id: number): void
+  (e: "deletePreset", id: number): void;
+  (e: "openPreset", id: number): void;
 }>();
 
 function deletePreset(id: number): void {
   emit("deletePreset", id);
+}
+
+function openPreset(id: number): void {
+  emit("openPreset", id);
 }
 
 </script>
@@ -20,7 +25,7 @@ function deletePreset(id: number): void {
 <template>
   <div class="presets">
     <TransitionGroup>
-      <Preset v-for="p in presets" :data="p" @delete="deletePreset" :key="p.id"/>
+      <Preset v-for="p in presets" :data="p" @delete="deletePreset" @open="openPreset" :key="p.id"/>
     </TransitionGroup>
     <div class="placeholder">No presets</div>
   </div>

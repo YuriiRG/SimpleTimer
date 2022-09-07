@@ -18,14 +18,20 @@ const timerState = ref("idle" as stateType);
 
 const showModal = ref(false);
 
-const dummyPresets = ref([] as IPreset[]);
+const presetsList = ref([] as IPreset[]);
 
 function deletePreset(id: number): void {
-  dummyPresets.value = dummyPresets.value.filter(p => p.id !== id);
+  presetsList.value = presetsList.value.filter(p => p.id !== id);
+}
+
+function openPreset(id: number): void {
+  if (timerState.value === "idle") {
+    time.value = presetsList.value.filter(p => p.id === id)[0].time;
+  }
 }
 
 function addPreset() {
-  dummyPresets.value.push({ id: idCounter++, time: time.value });
+  presetsList.value.push({ id: idCounter++, time: time.value });
 }
 
 function openSetTimeWindow() {
@@ -50,7 +56,7 @@ function onResetClick() {
 <template>
   <div class="container">
     <div class="app">
-      <Presets v-model:presets="dummyPresets" @delete-preset="deletePreset"/>
+      <Presets v-model:presets="presetsList" @delete-preset="deletePreset" @open-preset="openPreset"/>
       <div class="buttons">
         <Button text="Set time"
                 @click="openSetTimeWindow"

@@ -6,12 +6,13 @@ defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: 'delete', id: number): void
+  (e: 'delete', id: number): void;
+  (e: 'open',   id: number): void;
 }>();
 </script>
 
 <template>
-  <div class="string">
+  <div class="string" @click="emit('open', data.id)">
     <span>
       {{ secondsToString(data.time) }}
     </span>
@@ -44,6 +45,7 @@ const emit = defineEmits<{
   margin-bottom: 0.2em;
   z-index: 1;
   background: #fff;
+  user-select: none;
 }
 .string:hover {
   background-color: #eee;
