@@ -1,19 +1,24 @@
 <script setup lang="ts">
-import { watch, ref } from 'vue';
-import Preset from './Preset.vue';
+import Preset from './PresetItem.vue';
 
-import { IPreset } from "../types";
+import { IPreset, stateType } from "../types";
 
 const props = defineProps<{
-  presets: Array<IPreset>
+  presets: Array<IPreset>,
+  state: stateType
 }>();
 
 const emit = defineEmits<{
-  (e: "deletePreset", id: number): void
+  (e: "deletePreset", id: number): void;
+  (e: "openPreset", id: number): void;
 }>();
 
 function deletePreset(id: number): void {
   emit("deletePreset", id);
+}
+
+function openPreset(id: number): void {
+  emit("openPreset", id);
 }
 
 </script>
@@ -21,11 +26,9 @@ function deletePreset(id: number): void {
 <template>
   <div class="presets">
     <TransitionGroup>
-      <Preset v-for="p in presets" :data="p" @delete="deletePreset" :key="p.id"/>
+      <Preset v-for="p in presets" :data="p" @delete="deletePreset" :state="props.state" @open="openPreset" :key="p.id"/>
     </TransitionGroup>
-    <div class="placeholder">
-      No presets
-    </div>
+    <div class="placeholder">No presets</div>
   </div>
 </template>
 
@@ -36,7 +39,7 @@ function deletePreset(id: number): void {
   --p-bottom: 0.4em;
   --p-left: 0.8em;
   --p-right: 0.8em;
-  width: 6rem;
+  width: 6.5rem;
   border-radius: var(--sm-border-radius);
   box-shadow: var(--sm-shadow-x)
               var(--sm-shadow-y)
@@ -49,7 +52,7 @@ function deletePreset(id: number): void {
   display: flex;
   flex-direction: column;
   align-self: center;
-  min-height: 2em;
+  min-height: 10em;
 }
 
 @media screen and (min-width: 460px) {
@@ -65,7 +68,12 @@ function deletePreset(id: number): void {
 .placeholder {
   position: absolute;
   z-index: 0;
-  padding: 0.4em;
+  padding-top: 0.4em;
+  color: gray;
+  user-select: none;
+  width: 100%;
+  left: 0;
+  text-align: center;
 }
 
 </style>

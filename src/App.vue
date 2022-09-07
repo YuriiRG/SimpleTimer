@@ -18,14 +18,30 @@ const timerState = ref("idle" as stateType);
 
 const showModal = ref(false);
 
-const dummyPresets = ref([] as IPreset[]);
+const presetsList = ref([] as IPreset[]);
 
-function deletePreset(id: number): void {
-  dummyPresets.value = dummyPresets.value.filter(p => p.id !== id);
+if (localStorage.getItem("presets")) {
+  presetsList.value = JSON.parse(localStorage.getItem("presets")!);
 }
 
-function addDummyPreset() {
-  dummyPresets.value.push({ id: idCounter++, time: "2:77:37" });
+function deletePreset(id: number): void {
+  presetsList.value = presetsList.value.filter(p => p.id !== id);
+  savePresets();
+}
+
+function openPreset(id: number): void {
+  if (timerState.value === "idle") {
+    time.value = presetsList.value.filter(p => p.id === id)[0].time;
+  }
+}
+
+function addPreset() {
+  presetsList.value.push({ id: idCounter++, time: time.value });
+  savePresets();
+}
+
+function savePresets(): void {
+  localStorage.setItem("presets", JSON.stringify(presetsList.value));
 }
 
 function openSetTimeWindow() {
@@ -50,7 +66,7 @@ function onResetClick() {
 <template>
   <div class="container">
     <div class="app">
-      <Presets v-model:presets="dummyPresets" @delete-preset="deletePreset"/>
+      <Presets v-model:presets="presetsList" @delete-preset="deletePreset" :state="timerState" @open-preset="openPreset"/>
       <div class="buttons">
         <Button text="Set time"
                 @click="openSetTimeWindow"
@@ -62,8 +78,8 @@ function onResetClick() {
                 @click="onResetClick"
                 :disabled="!['finished', 'paused'].includes(timerState)"/>
         <Button text="Add preset"
-                @click="addDummyPreset"
-                :disabled="true"/>
+                @click="addPreset"
+                :disabled="!(timerState === 'idle')"/>
       </div>
       <div class="timer">
         <Timer v-model:time="time" v-model:timeLeft="timeLeft" v-model:state="timerState"/>
@@ -89,7 +105,7 @@ function onResetClick() {
 .buttons {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 0.5em;
   flex-direction: row;
 }
 
@@ -113,6 +129,7 @@ function onResetClick() {
   }
   .buttons {
     flex-direction: column;
+    gap: 1em;
   }
 }
 </style>

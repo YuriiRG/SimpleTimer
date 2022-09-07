@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch, watchEffect } from 'vue';
-
+import { secondsToString } from '../timeConvert';
 import { stateType } from '../types';
 
 const props = defineProps<{
@@ -43,7 +43,6 @@ function animateTimer(now: number) {
       return;
     }
     if (pauseStartTime !== -1) {
-      console.log("pause ended");
       startTime += (now-pauseStartTime);
       pauseStartTime = -1;
     }
@@ -57,7 +56,6 @@ function animateTimer(now: number) {
     emit("update:timeLeft", targetTimeLeft);
     requestAnimationFrame(animateTimer);
   } else if (props.state === "paused") {
-    console.log("pause started");
     pauseStartTime = now;
   } else {
     startTime = -1;
@@ -65,23 +63,7 @@ function animateTimer(now: number) {
   }
 }
 
-
-function TimeToString(t: number): string {
-  t = Math.ceil(t);
-  const seconds = t % 60;
-  const secondsString = AddZeroToNumberString(seconds);
-  const minutes = ((t - seconds) / 60) % 60;
-  const minutesString = AddZeroToNumberString(minutes);
-  const hours = (t - (minutes * 60) - seconds) / (60 * 60);
-  const hoursString = AddZeroToNumberString(hours);
-  return `${hoursString}:${minutesString}:${secondsString}`;
-}
-
-function AddZeroToNumberString(num: number): string {
-  return (num >= 10) ? `${num}` : `0${num}`;
-}
-
-const timeLeftString = computed(() => TimeToString(props.timeLeft));
+const timeLeftString = computed(() => secondsToString(props.timeLeft));
 
 const degree = computed(() => {
   if (props.time === 0) {
