@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { IPreset } from "../types";
+import { IPreset, stateType } from "../types";
 import { secondsToString } from "../timeConvert";
 defineProps<{
-  data: IPreset
+  data: IPreset,
+  state: stateType
 }>();
 
 const emit = defineEmits<{
@@ -12,13 +13,13 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div class="string" @click="emit('open', data.id)">
+  <div class="string" @click="emit('open', data.id)" :aria-disabled="state !== 'idle'">
     <span>
       {{ secondsToString(data.time) }}
     </span>
     <svg xmlns="http://www.w3.org/2000/svg"
           fill="currentColor"
-          @click="emit('delete', data.id)"
+          @click="state === 'idle' ? emit('delete', data.id) : undefined"
           class="delete-icon"
           viewBox="0 0 16 16">
       <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 
@@ -47,8 +48,17 @@ const emit = defineEmits<{
   background: #fff;
   user-select: none;
 }
-.string:hover {
+.string:hover:not([aria-disabled=true]) {
   background-color: #eee;
+  transition: all 0.2s;
+}
+
+.string:hover:active:not([aria-disabled=true]) {
+  scale: 0.95;
+}
+
+.string[aria-disabled=true] {
+  color: #555;
 }
 
 @media screen and (min-width: 460px) {

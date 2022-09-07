@@ -57,7 +57,6 @@ function animateTimer(now: number) {
     emit("update:timeLeft", targetTimeLeft);
     requestAnimationFrame(animateTimer);
   } else if (props.state === "paused") {
-    console.log("pause started");
     pauseStartTime = now;
   } else {
     startTime = -1;

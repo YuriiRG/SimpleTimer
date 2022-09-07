@@ -56,7 +56,7 @@ function onResetClick() {
 <template>
   <div class="container">
     <div class="app">
-      <Presets v-model:presets="presetsList" @delete-preset="deletePreset" @open-preset="openPreset"/>
+      <Presets v-model:presets="presetsList" @delete-preset="deletePreset" :state="timerState" @open-preset="openPreset"/>
       <div class="buttons">
         <Button text="Set time"
                 @click="openSetTimeWindow"

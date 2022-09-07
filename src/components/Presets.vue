@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import Preset from './PresetItem.vue';
 
-import { IPreset } from "../types";
+import { IPreset, stateType } from "../types";
 
 const props = defineProps<{
-  presets: Array<IPreset>
+  presets: Array<IPreset>,
+  state: stateType
 }>();
 
 const emit = defineEmits<{
@@ -25,7 +26,7 @@ function openPreset(id: number): void {
 <template>
   <div class="presets">
     <TransitionGroup>
-      <Preset v-for="p in presets" :data="p" @delete="deletePreset" @open="openPreset" :key="p.id"/>
+      <Preset v-for="p in presets" :data="p" @delete="deletePreset" :state="props.state" @open="openPreset" :key="p.id"/>
     </TransitionGroup>
     <div class="placeholder">No presets</div>
   </div>
