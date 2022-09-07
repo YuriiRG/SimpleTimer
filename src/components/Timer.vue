@@ -51,6 +51,7 @@ function animateTimer(now: number) {
       emit("update:timeLeft", 0);
       emit("update:state", "finished");
       startTime = -1;
+      playRing();
       return;
     }
     emit("update:timeLeft", targetTimeLeft);
@@ -61,6 +62,11 @@ function animateTimer(now: number) {
     startTime = -1;
     emit("update:timeLeft", props.time);
   }
+}
+
+function playRing() {
+  let audio = new Audio('/ring.mp3');
+  audio.play();
 }
 
 const timeLeftString = computed(() => secondsToString(props.timeLeft));

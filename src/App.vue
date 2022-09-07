@@ -6,8 +6,6 @@ import SelectTimeModal from "./components/SelectTimeModal.vue";
 import { stateType, IPreset } from "./types";
 import { ref } from "vue";
 
-
-
 let idCounter = 0;
 
 const time = ref(0);
@@ -20,8 +18,10 @@ const showModal = ref(false);
 
 const presetsList = ref([] as IPreset[]);
 
-if (localStorage.getItem("presets")) {
-  presetsList.value = JSON.parse(localStorage.getItem("presets")!);
+if (localStorage.getItem("data")) {
+  let localStorageData = JSON.parse(localStorage.getItem("data")!);
+  presetsList.value = localStorageData.presets;
+  idCounter = localStorageData.idCounter;
 }
 
 function deletePreset(id: number): void {
@@ -41,7 +41,10 @@ function addPreset() {
 }
 
 function savePresets(): void {
-  localStorage.setItem("presets", JSON.stringify(presetsList.value));
+  localStorage.setItem("data", JSON.stringify({
+    "presets": presetsList.value,
+    "idCounter": idCounter
+  }));
 }
 
 function openSetTimeWindow() {
