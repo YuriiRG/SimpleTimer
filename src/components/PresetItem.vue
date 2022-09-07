@@ -48,7 +48,7 @@ const emit = defineEmits<{
   background: #fff;
   user-select: none;
 }
-.string:hover {
+.string:hover:not([aria-disabled=true]) {
   background-color: #eee;
 }
 
