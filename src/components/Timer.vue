@@ -17,6 +17,7 @@ const emit = defineEmits<{
 
 let pauseStartTime = -1;
 let startTime = -1;
+let timeoutId = -1;
 
 watchEffect(() => {
   if (props.state === "running") {
@@ -33,6 +34,16 @@ watch(() => props.time, newValue => {
 
 function initTimer() {
   requestAnimationFrame(animateTimer);
+  if (pauseStartTime === -1) {
+    timeoutId = setTimeout(finishTimer, props.time*1000);
+  }
+}
+
+function finishTimer(): void {
+  emit("update:timeLeft", 0);
+  emit("update:state", "finished");
+  startTime = -1;
+  playRing();
 }
 
 function animateTimer(now: number) {
@@ -45,22 +56,18 @@ function animateTimer(now: number) {
     if (pauseStartTime !== -1) {
       startTime += (now-pauseStartTime);
       pauseStartTime = -1;
+      timeoutId = setTimeout(finishTimer, props.time*1000-(now-startTime));
     }
     const targetTimeLeft = (props.time-(now-startTime)/1000);
     if (targetTimeLeft <= 0) {
-      emit("update:timeLeft", 0);
-      emit("update:state", "finished");
-      startTime = -1;
-      playRing();
+      finishTimer();
       return;
     }
     emit("update:timeLeft", targetTimeLeft);
     requestAnimationFrame(animateTimer);
   } else if (props.state === "paused") {
     pauseStartTime = now;
-  } else {
-    startTime = -1;
-    emit("update:timeLeft", props.time);
+    clearTimeout(timeoutId);
   }
 }
 
