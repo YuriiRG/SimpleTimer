@@ -43,7 +43,6 @@ function animateTimer(now: number) {
       return;
     }
     if (pauseStartTime !== -1) {
-      console.log("pause ended");
       startTime += (now-pauseStartTime);
       pauseStartTime = -1;
     }

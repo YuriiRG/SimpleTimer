@@ -20,8 +20,13 @@ const showModal = ref(false);
 
 const presetsList = ref([] as IPreset[]);
 
+if (localStorage.getItem("presets")) {
+  presetsList.value = JSON.parse(localStorage.getItem("presets")!);
+}
+
 function deletePreset(id: number): void {
   presetsList.value = presetsList.value.filter(p => p.id !== id);
+  savePresets();
 }
 
 function openPreset(id: number): void {
@@ -32,6 +37,11 @@ function openPreset(id: number): void {
 
 function addPreset() {
   presetsList.value.push({ id: idCounter++, time: time.value });
+  savePresets();
+}
+
+function savePresets(): void {
+  localStorage.setItem("presets", JSON.stringify(presetsList.value));
 }
 
 function openSetTimeWindow() {
