@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch, watchEffect } from 'vue';
 import { secondsToString } from '../timeConvert';
+import SelectTimeModal from "./SelectTimeModal.vue";
 import { stateType } from '../types';
 
 const props = defineProps<{
@@ -18,6 +19,7 @@ const emit = defineEmits<{
 let pauseStartTime = -1;
 let startTime = -1;
 let timeoutId = -1;
+const showModal = ref(false);
 
 watchEffect(() => {
   if (props.state === "running") {
@@ -90,14 +92,28 @@ const degree = computed(() => {
   }
 });
 
+function openSetTimeWindow() {
+  if (props.state === "idle") {
+    showModal.value = true;
+  }
+}
+
+const enteredTime = ref(0);
+watchEffect(() => {
+  emit("update:time", enteredTime.value);
+});
+
 </script>
 
 <template>
   <div class="timer">
-    <div class="text">
+    <div class="text" @click="openSetTimeWindow" :aria-disabled="props.state !== 'idle'">
       {{timeLeftString}}
     </div>
   </div>
+  <Transition>
+    <SelectTimeModal v-model:time="enteredTime" v-if="showModal" @close="showModal = false"/>
+  </Transition>
 </template>
 
 <style scoped>

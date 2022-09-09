@@ -2,7 +2,6 @@
 import Presets from "./components/Presets.vue";
 import Timer from "./components/Timer.vue";
 import Button from "./components/Button.vue";
-import SelectTimeModal from "./components/SelectTimeModal.vue";
 import { stateType, IPreset } from "./types";
 import { ref } from "vue";
 
@@ -47,10 +46,6 @@ function savePresets(): void {
   }));
 }
 
-function openSetTimeWindow() {
-  showModal.value = true;
-}
-
 function onStartPauseClick() {
   if (timerState.value !== "running") {
     timerState.value = "running";
@@ -71,9 +66,6 @@ function onResetClick() {
     <div class="app">
       <Presets v-model:presets="presetsList" @delete-preset="deletePreset" :state="timerState" @open-preset="openPreset"/>
       <div class="buttons">
-        <Button text="Set time"
-                @click="openSetTimeWindow"
-                :disabled="timerState !== 'idle'"/>
         <Button :text="timerState === 'running' ? 'Pause' : 'Start'"
                 @click="onStartPauseClick"
                 :disabled="!['idle', 'paused', 'running'].includes(timerState)"/>
@@ -89,9 +81,6 @@ function onResetClick() {
       </div>
     </div>
   </div>
-  <Transition>
-    <SelectTimeModal v-model:time="time" v-if="showModal" @close="showModal = false"/>
-  </Transition>
 </template>
 
 <style scoped>
