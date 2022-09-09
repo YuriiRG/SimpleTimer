@@ -107,8 +107,10 @@ watchEffect(() => {
 
 <template>
   <div class="timer">
-    <div class="text" @click="openSetTimeWindow" :aria-disabled="props.state !== 'idle'">
-      {{timeLeftString}}
+    <div class="text-block">
+      <span class="text" @click="openSetTimeWindow" :aria-disabled="props.state !== 'idle'">
+        {{timeLeftString}}
+      </span>
     </div>
   </div>
   <Transition>
@@ -124,7 +126,7 @@ watchEffect(() => {
   border-radius: 50%;
   background: conic-gradient(green v-bind('`${degree}deg`'), lightgrey v-bind('`${degree}deg`') 360deg);
 }
-.text {
+.text-block {
   user-select: none;
   --timer-line-width: 10%;
   position: absolute;
@@ -138,5 +140,24 @@ watchEffect(() => {
   background: #fff;
   border-radius: 50%;
   font-size: 40px;
+}
+
+.text {
+  transition: all 0.1s;
+  cursor: pointer;
+}
+
+.text[aria-disabled=true] {
+  color: #464646;
+  cursor: default;
+}
+.text:hover:not([aria-disabled=true]) {
+  font-size: 1.1em;
+  transition: all 0.1s;
+}
+
+.text:hover:active:not([aria-disabled=true]) {
+  font-size: 0.95em;
+  transition: all 0.1s;
 }
 </style>
