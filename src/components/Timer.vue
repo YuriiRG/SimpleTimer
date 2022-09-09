@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch, watchEffect } from 'vue';
 import { secondsToString } from '../timeConvert';
+import SelectTimeModal from "./SelectTimeModal.vue";
 import { stateType } from '../types';
 
 const props = defineProps<{
@@ -18,6 +19,7 @@ const emit = defineEmits<{
 let pauseStartTime = -1;
 let startTime = -1;
 let timeoutId = -1;
+const showModal = ref(false);
 
 watchEffect(() => {
   if (props.state === "running") {
@@ -90,14 +92,30 @@ const degree = computed(() => {
   }
 });
 
+function openSetTimeWindow() {
+  if (props.state === "idle") {
+    showModal.value = true;
+  }
+}
+
+const enteredTime = ref(0);
+watchEffect(() => {
+  emit("update:time", enteredTime.value);
+});
+
 </script>
 
 <template>
   <div class="timer">
-    <div class="text">
-      {{timeLeftString}}
+    <div class="text-block">
+      <span class="text" @click="openSetTimeWindow" :aria-disabled="props.state !== 'idle'">
+        {{timeLeftString}}
+      </span>
     </div>
   </div>
+  <Transition>
+    <SelectTimeModal v-model:time="enteredTime" v-if="showModal" @close="showModal = false"/>
+  </Transition>
 </template>
 
 <style scoped>
@@ -108,7 +126,7 @@ const degree = computed(() => {
   border-radius: 50%;
   background: conic-gradient(green v-bind('`${degree}deg`'), lightgrey v-bind('`${degree}deg`') 360deg);
 }
-.text {
+.text-block {
   user-select: none;
   --timer-line-width: 10%;
   position: absolute;
@@ -122,5 +140,24 @@ const degree = computed(() => {
   background: #fff;
   border-radius: 50%;
   font-size: 40px;
+}
+
+.text {
+  transition: all 0.1s;
+  cursor: pointer;
+}
+
+.text[aria-disabled=true] {
+  color: #464646;
+  cursor: default;
+}
+.text:hover:not([aria-disabled=true]) {
+  font-size: 1.1em;
+  transition: all 0.1s;
+}
+
+.text:hover:active:not([aria-disabled=true]) {
+  font-size: 0.95em;
+  transition: all 0.1s;
 }
 </style>

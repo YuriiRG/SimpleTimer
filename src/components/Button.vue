@@ -15,25 +15,31 @@ const emit = defineEmits<{
 </template>
 
 <style scoped>
-  .button {
-    background-color: #fff;
-    border: none;
-    padding: 0.6em;
-    font-size: inherit; 
-    border-radius: var(--sm-border-radius);
-    box-shadow: var(--sm-shadow-x)
-                var(--sm-shadow-y)
-                var(--sm-shadow-blur)
-                var(--sm-shadow-color);
-    transition: background-color 0.15s;
-  }
-  .button:hover:not([disabled]) {
-    background-color: #eee;
-    transition: background-color 0.15s, transform 0.05s;
-  }
+.button {
+  background-color: #fff;
+  border: none;
+  padding: 0.6em;
+  font-size: inherit; 
+  border-radius: var(--sm-border-radius);
+  box-shadow: var(--sm-shadow-x)
+              var(--sm-shadow-y)
+              var(--sm-shadow-blur)
+              var(--sm-shadow-color);
+  transition: background-color 0.15s;
+  cursor: pointer;
+}
 
-  .button:hover:active:not([disabled]) {
-    background-color: #e5e5e5;
-    transform: scale(0.95);
-  }
+.button[disabled] {
+  cursor: default;
+}
+
+.button:hover:not([disabled]) {
+  background-color: #eee;
+  transition: background-color 0.15s, transform 0.05s;
+}
+
+.button:hover:active:not([disabled]) {
+  background-color: #e5e5e5;
+  transform: scale(0.95);
+}
 </style>
