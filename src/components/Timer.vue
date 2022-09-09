@@ -102,6 +102,9 @@ const enteredTime = ref(0);
 watchEffect(() => {
   emit("update:time", enteredTime.value);
 });
+watchEffect(() => {
+  enteredTime.value = props.time;
+});
 
 </script>
 
