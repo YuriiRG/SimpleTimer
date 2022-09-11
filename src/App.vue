@@ -2,7 +2,7 @@
 import Presets from "./components/Presets.vue";
 import Timer from "./components/Timer.vue";
 import Button from "./components/Button.vue";
-import { stateType, IPreset } from "./types";
+import type { stateType, IPreset } from "./types";
 import { ref } from "vue";
 
 let idCounter = 0;

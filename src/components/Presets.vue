@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Preset from './PresetItem.vue';
 
-import { IPreset, stateType } from "../types";
+import type { IPreset, stateType } from "../types";
 
 const props = defineProps<{
   presets: Array<IPreset>,
