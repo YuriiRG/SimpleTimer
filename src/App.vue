@@ -4,6 +4,7 @@ import Timer from "./components/Timer.vue";
 import Button from "./components/Button.vue";
 import type { stateType, IPreset } from "./types";
 import { ref } from "vue";
+import DarkModeSwitch from "./components/DarkModeSwitch.vue";
 
 let idCounter = 0;
 
@@ -12,8 +13,6 @@ const time = ref(0);
 const timeLeft = ref(0);
 
 const timerState = ref("idle" as stateType);
-
-const showModal = ref(false);
 
 const presetsList = ref([] as IPreset[]);
 
@@ -80,6 +79,9 @@ function onResetClick() {
         <Timer v-model:time="time" v-model:timeLeft="timeLeft" v-model:state="timerState"/>
       </div>
     </div>
+    <div class="dark-mode-switch">
+      <DarkModeSwitch/>
+    </div>
   </div>
 </template>
 
@@ -101,7 +103,13 @@ function onResetClick() {
   flex-direction: row;
 }
 
-
+.dark-mode-switch {
+  --width: 4rem;
+  position: absolute;
+  left: calc(100vw - var(--width));
+  width: var(--width);
+  top: 0;
+}
 
 @media screen and (min-width: 460px) {
   .app {
@@ -109,9 +117,6 @@ function onResetClick() {
     box-shadow: 1rem 1rem 3rem 1.4rem #bbb;
     flex-direction: row;
     align-items: center;
-  }
-  .test {
-    width: 15em;
   }
   .container {
     display: flex;

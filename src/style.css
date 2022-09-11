@@ -13,6 +13,11 @@
   --sm-border-radius: 0.5em;
 }
 
+/* :root.dark {
+  background-color: black;
+  color: white;
+} */
+
 #app {
   min-height: 100vh;
 }
