@@ -2,7 +2,7 @@
 import { computed, ref, watch, watchEffect } from 'vue';
 import { secondsToString } from '../timeConvert';
 import SelectTimeModal from "./SelectTimeModal.vue";
-import { stateType } from '../types';
+import type { stateType } from '../types';
 
 const props = defineProps<{
   time: number,

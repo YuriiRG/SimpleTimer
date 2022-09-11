@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IPreset, stateType } from "../types";
+import type { IPreset, stateType } from "../types";
 import { secondsToString } from "../timeConvert";
 defineProps<{
   data: IPreset,
