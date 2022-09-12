@@ -145,6 +145,10 @@ watchEffect(() => {
   font-size: 40px;
 }
 
+.dark .text-block {
+  background-color: #222;
+}
+
 .text {
   transition: all 0.1s;
   cursor: pointer;
@@ -154,6 +158,15 @@ watchEffect(() => {
   color: #464646;
   cursor: default;
 }
+
+.dark .text {
+  color: #ccc;
+}
+
+.dark .text[aria-disabled=true] {
+  color: #aaa;
+}
+
 .text:hover:not([aria-disabled=true]) {
   font-size: 1.1em;
   transition: all 0.1s;

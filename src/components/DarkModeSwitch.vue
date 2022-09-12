@@ -62,7 +62,7 @@ function toggle() {
   width: 100%;
   height: 100%;
 }
-.moon {
-  color: #fff;
+.dark .svg-icon {
+  color: #a0a0a0;
 }
 </style>

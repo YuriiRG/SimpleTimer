@@ -55,6 +55,11 @@ function openPreset(id: number): void {
   min-height: 10em;
 }
 
+.dark .presets {
+  box-shadow: none;
+  background-color: #333;
+}
+
 @media screen and (min-width: 460px) {
   .presets {
     align-self: stretch;

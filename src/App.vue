@@ -96,6 +96,11 @@ function onResetClick() {
   gap: 1em;
 }
 
+.dark .app {
+  box-shadow: none;
+  background-color: #222;
+}
+
 .buttons {
   display: flex;
   flex-direction: column;
