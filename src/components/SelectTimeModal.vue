@@ -95,6 +95,16 @@ watch(hours,   onInput);
   padding: 2em;
 }
 
+.dark .modal-window {
+  background: #333;
+  color: #D4D4D4;
+}
+
+.modal-window input {
+  border: 1px solid black;
+  border-radius: 0.3rem;
+}
+
 .time-input-container {
   padding-bottom: 1em;
   display: flex;
