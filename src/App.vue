@@ -16,8 +16,16 @@ const timerState = ref("idle" as stateType);
 
 const presetsList = ref([] as IPreset[]);
 
-if (localStorage.getItem("data")) {
-  let localStorageData = JSON.parse(localStorage.getItem("data")!);
+let prefersDark = matchMedia("(prefers-color-scheme: dark)").matches;
+
+const darkMode = ref(prefersDark);
+
+if (localStorage.getItem("timerDarkMode")) {
+  darkMode.value = JSON.parse(localStorage.getItem("timerDarkMode")!) as boolean;
+}
+
+if (localStorage.getItem("timerData")) {
+  let localStorageData = JSON.parse(localStorage.getItem("timerData")!);
   presetsList.value = localStorageData.presets;
   idCounter = localStorageData.idCounter;
 }
@@ -39,7 +47,7 @@ function addPreset() {
 }
 
 function savePresets(): void {
-  localStorage.setItem("data", JSON.stringify({
+  localStorage.setItem("timerData", JSON.stringify({
     "presets": presetsList.value,
     "idCounter": idCounter
   }));
@@ -80,7 +88,7 @@ function onResetClick() {
       </div>
     </div>
     <div class="dark-mode-switch">
-      <DarkModeSwitch/>
+      <DarkModeSwitch v-model:on="darkMode"/>
     </div>
   </div>
 </template>

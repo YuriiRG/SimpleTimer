@@ -1,16 +1,27 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watchEffect } from 'vue';
 
-const dark = ref(false);
+const props = defineProps<{
+  on: boolean
+}>();
+
+const emit = defineEmits<{
+  (e: "update:on", newValue: boolean): void;
+}>();
 
 function toggle() {
-  dark.value = !dark.value;
-  if (dark.value) {
+  localStorage.setItem("timerDarkMode", JSON.stringify(!props.on));
+  emit("update:on", !props.on);
+}
+
+watchEffect(() => {
+  if (props.on) {
     document.querySelector("html")?.classList.add("dark");
   } else {
     document.querySelector("html")?.classList.remove("dark");
   }
-}
+});
+
 </script>
 
 <template>
@@ -20,7 +31,7 @@ function toggle() {
          preserveAspectRatio="xMidYMid meet"
          viewBox="0 0 24 24"
          class="svg-icon"
-         v-if="!dark">
+         v-if="!props.on">
       <g fill="none"
          stroke="currentColor"
          stroke-linecap="round"
