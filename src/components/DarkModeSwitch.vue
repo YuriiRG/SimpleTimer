@@ -68,6 +68,7 @@ watchEffect(() => {
   height: 3rem;
   transition: all 0.2s;
   margin: 0.5rem;
+  cursor: pointer;
 }
 .svg-icon {
   width: 100%;
