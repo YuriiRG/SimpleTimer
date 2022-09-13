@@ -127,8 +127,13 @@ watchEffect(() => {
   height: 15em;
   position: relative;
   border-radius: 50%;
-  background: conic-gradient(green v-bind('`${degree}deg`'), lightgrey v-bind('`${degree}deg`') 360deg);
+  background: conic-gradient(#6130E3 v-bind('`${degree}deg`'),lightgrey v-bind('`${degree}deg`') 360deg);
 }
+
+.dark .timer {
+  background: conic-gradient(#3095E3 v-bind('`${degree}deg`'),#333 v-bind('`${degree}deg`') 360deg);
+}
+
 .text-block {
   user-select: none;
   --timer-line-width: 10%;
@@ -145,6 +150,10 @@ watchEffect(() => {
   font-size: 40px;
 }
 
+.dark .text-block {
+  background-color: #222;
+}
+
 .text {
   transition: all 0.1s;
   cursor: pointer;
@@ -154,6 +163,15 @@ watchEffect(() => {
   color: #464646;
   cursor: default;
 }
+
+.dark .text {
+  color: #ccc;
+}
+
+.dark .text[aria-disabled=true] {
+  color: #aaa;
+}
+
 .text:hover:not([aria-disabled=true]) {
   font-size: 1.1em;
   transition: all 0.1s;

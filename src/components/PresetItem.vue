@@ -48,6 +48,21 @@ const emit = defineEmits<{
   background: #fff;
   user-select: none;
 }
+
+.dark .string {
+  box-shadow: none;
+  background-color: #444;
+  color: #D4D4D4;
+}
+
+.dark .string[aria-disabled=true] {
+  color: #777;
+}
+
+.dark .string:hover:not([aria-disabled=true]) {
+  background-color: #555;
+}
+
 .string:hover:not([aria-disabled=true]) {
   background-color: #eee;
 }

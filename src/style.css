@@ -11,6 +11,19 @@
   --sm-shadow-blur: 1rem;
   --sm-shadow-color: #aaa;
   --sm-border-radius: 0.5em;
+
+  --dark-mode-text-color: #D4D4D4;
+  --dark-mode-background-color: #373737;
+}
+
+:root.dark {
+  background-color: #222;
+}
+
+@media screen and (min-width: 460px) {
+  :root.dark {
+    background-color: #000;
+  }
 }
 
 #app {

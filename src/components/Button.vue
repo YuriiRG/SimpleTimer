@@ -29,8 +29,27 @@ const emit = defineEmits<{
   cursor: pointer;
 }
 
+.dark .button {
+  background-color: #e0e0e0;
+  color: #1d1d1d;
+  box-shadow: none;
+}
+
 .button[disabled] {
   cursor: default;
+}
+
+.dark .button[disabled] {
+  background-color: #3c3c3c;
+  color: #777777;
+}
+
+.dark .button:hover:not([disabled]) {
+  background-color: #c0c0c0;
+}
+
+.dark .button:hover:active:not([disabled]) {
+  background-color: #b8b8b8;
 }
 
 .button:hover:not([disabled]) {
