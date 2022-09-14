@@ -72,6 +72,9 @@ function onResetClick() {
   <div class="container">
     <div class="header">
       <h1>Simple timer</h1>
+      <div class="dark-mode-switch">
+        <DarkModeSwitch v-model:on="darkMode"/>
+      </div>
     </div>
     <div class="sub-container">
       <div class="app">
@@ -90,9 +93,6 @@ function onResetClick() {
         <div class="timer">
           <Timer v-model:time="time" v-model:timeLeft="timeLeft" v-model:state="timerState"/>
         </div>
-      </div>
-      <div class="dark-mode-switch">
-        <DarkModeSwitch v-model:on="darkMode"/>
       </div>
     </div>
   </div>
@@ -116,6 +116,13 @@ function onResetClick() {
 
 .header h1 {
   margin: 1rem;
+  font-weight: 800;
+  line-height: 1.5rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
 }
 
 .app {
@@ -140,11 +147,7 @@ function onResetClick() {
 }
 
 .dark-mode-switch {
-  --width: 4rem;
-  position: absolute;
-  left: calc(100vw - var(--width));
-  width: var(--width);
-  top: 0;
+  width: 4rem;
 }
 
 @media screen and (min-width: 460px) {
