@@ -70,30 +70,53 @@ function onResetClick() {
 
 <template>
   <div class="container">
-    <div class="app">
-      <Presets v-model:presets="presetsList" @delete-preset="deletePreset" :state="timerState" @open-preset="openPreset"/>
-      <div class="buttons">
-        <Button :text="timerState === 'running' ? 'Pause' : 'Start'"
-                @click="onStartPauseClick"
-                :disabled="!['idle', 'paused', 'running'].includes(timerState)"/>
-        <Button text="Reset"
-                @click="onResetClick"
-                :disabled="!['finished', 'paused'].includes(timerState)"/>
-        <Button text="Add preset"
-                @click="addPreset"
-                :disabled="!(timerState === 'idle')"/>
-      </div>
-      <div class="timer">
-        <Timer v-model:time="time" v-model:timeLeft="timeLeft" v-model:state="timerState"/>
-      </div>
+    <div class="header">
+      <h1>Simple timer</h1>
     </div>
-    <div class="dark-mode-switch">
-      <DarkModeSwitch v-model:on="darkMode"/>
+    <div class="sub-container">
+      <div class="app">
+        <Presets v-model:presets="presetsList" @delete-preset="deletePreset" :state="timerState" @open-preset="openPreset"/>
+        <div class="buttons">
+          <Button :text="timerState === 'running' ? 'Pause' : 'Start'"
+                  @click="onStartPauseClick"
+                  :disabled="!['idle', 'paused', 'running'].includes(timerState)"/>
+          <Button text="Reset"
+                  @click="onResetClick"
+                  :disabled="!['finished', 'paused'].includes(timerState)"/>
+          <Button text="Add preset"
+                  @click="addPreset"
+                  :disabled="!(timerState === 'idle')"/>
+        </div>
+        <div class="timer">
+          <Timer v-model:time="time" v-model:timeLeft="timeLeft" v-model:state="timerState"/>
+        </div>
+      </div>
+      <div class="dark-mode-switch">
+        <DarkModeSwitch v-model:on="darkMode"/>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.sub-container {
+  flex-grow: 1;
+}
+
+.dark .header h1 {
+  color: var(--dark-mode-text-color);
+}
+
+.header h1 {
+  margin: 1rem;
+}
 
 .app {
   padding: 1.5em;
@@ -131,11 +154,10 @@ function onResetClick() {
     flex-direction: row;
     align-items: center;
   }
-  .container {
+  .sub-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
   }
   .buttons {
     flex-direction: column;
