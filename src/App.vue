@@ -5,6 +5,7 @@ import Button from "./components/Button.vue";
 import type { stateType, IPreset } from "./types";
 import { ref } from "vue";
 import DarkModeSwitch from "./components/DarkModeSwitch.vue";
+import LocaleChanger from "./components/LocaleChanger.vue";
 
 let idCounter = 0;
 
@@ -72,6 +73,9 @@ function onResetClick() {
   <div class="container">
     <div class="header">
       <h1>{{ $t("message.hello", ["Hello"]) }}</h1>
+      <div class="locale-changer-container">
+        <LocaleChanger/>
+      </div>
       <div class="dark-mode-switch">
         <DarkModeSwitch v-model:on="darkMode"/>
       </div>
@@ -123,7 +127,11 @@ function onResetClick() {
 
 .header {
   display: flex;
-  justify-content: stretch;
+}
+
+.locale-changer-container {
+  display: flex;
+  align-items: center;
 }
 
 .app {
