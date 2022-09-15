@@ -1,10 +1,16 @@
 <script setup lang="ts">
-// Save language in localstorage
+import { useI18n } from 'vue-i18n';
+
+const { locale, availableLocales } = useI18n();
+
+function saveCurrentLocale(): void {
+  localStorage.setItem("lang", locale.value as string);
+}
 </script>
 <template>
   <div class="locale-changer">
-    <select v-model="$i18n.locale">
-      <option v-for="locale in $i18n.availableLocales" :key="`locale-${locale}`" :value="locale">{{ locale }}</option>
+    <select v-model="locale" @change="saveCurrentLocale">
+      <option v-for="locale in availableLocales" :key="`locale-${locale}`" :value="locale">{{ locale }}</option>
     </select>
   </div>
 </template>

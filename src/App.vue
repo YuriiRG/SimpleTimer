@@ -6,6 +6,9 @@ import type { stateType, IPreset } from "./types";
 import { ref } from "vue";
 import DarkModeSwitch from "./components/DarkModeSwitch.vue";
 import LocaleChanger from "./components/LocaleChanger.vue";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 
 let idCounter = 0;
 
@@ -72,7 +75,7 @@ function onResetClick() {
 <template>
   <div class="container">
     <div class="header">
-      <h1>{{ $t("message.hello", ["Hello"]) }}</h1>
+      <h1>{{ t("message.hello", ["Hello"]) }}</h1>
       <div class="locale-changer-container">
         <LocaleChanger/>
       </div>
