@@ -71,7 +71,7 @@ function onResetClick() {
 <template>
   <div class="container">
     <div class="header">
-      <h1>Simple timer</h1>
+      <h1>{{ $t("message.hello", ["Hello, "]) }}</h1>
       <div class="dark-mode-switch">
         <DarkModeSwitch v-model:on="darkMode"/>
       </div>
