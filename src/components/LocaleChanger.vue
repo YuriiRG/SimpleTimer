@@ -15,5 +15,25 @@ function saveCurrentLocale(): void {
   </div>
 </template>
 <style scoped>
-  /*Style the select*/
+.locale-changer {
+  margin: 1rem;
+}
+.locale-changer select {
+  padding: 0.3rem;
+  font-size: inherit;
+  background-color: #fff;
+  border: none;
+  border-radius: 0.3rem;
+  box-shadow: var(--sm-shadow-x) var(--sm-shadow-y) var(--sm-shadow-blur) var(--sm-shadow-color);
+}
+
+.dark .locale-changer select {
+  padding: 0.3rem;
+  font-size: inherit;
+  background-color: var(--dark-mode-background-color);
+  color: var(--dark-mode-text-color);
+  border: none;
+  border-radius: 0.3rem;
+  box-shadow: none;
+}
 </style>
