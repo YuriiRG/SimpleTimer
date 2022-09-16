@@ -1,5 +1,8 @@
 {
-  "message": {
-    "hello": "{0}, World"
-  }
+  "simpleTimer": "Simple timer",
+  "pause": "Pause",
+  "start": "Start",
+  "savePreset": "Save preset",
+  "reset": "Reset",
+  "noPresets": "No presets"
 }

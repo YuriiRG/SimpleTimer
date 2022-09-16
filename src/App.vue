@@ -75,7 +75,7 @@ function onResetClick() {
 <template>
   <div class="container">
     <div class="header">
-      <h1>{{ t("message.hello", ["Hello"]) }}</h1>
+      <h1>{{ t("simpleTimer") }}</h1>
       <div class="locale-changer-container">
         <LocaleChanger/>
       </div>
@@ -87,13 +87,13 @@ function onResetClick() {
       <div class="app">
         <Presets v-model:presets="presetsList" @delete-preset="deletePreset" :state="timerState" @open-preset="openPreset"/>
         <div class="buttons">
-          <Button :text="timerState === 'running' ? 'Pause' : 'Start'"
+          <Button :text="timerState === 'running' ? t('pause') : t('start')"
                   @click="onStartPauseClick"
                   :disabled="!['idle', 'paused', 'running'].includes(timerState)"/>
-          <Button text="Reset"
+          <Button :text="t('reset')"
                   @click="onResetClick"
                   :disabled="!['finished', 'paused'].includes(timerState)"/>
-          <Button text="Add preset"
+          <Button :text="t('savePreset')"
                   @click="addPreset"
                   :disabled="!(timerState === 'idle')"/>
         </div>
