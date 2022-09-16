@@ -4,5 +4,9 @@
   "start": "Запуск",
   "savePreset": "Сохранить",
   "reset": "Сбросить",
-  "noPresets": "Нет пресетов"
+  "noPresets": "Нет пресетов",
+  "hours": "Часы",
+  "minutes": "Минуты",
+  "seconds": "Секунды",
+  "close": "Закрыть"
 }

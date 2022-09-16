@@ -4,5 +4,9 @@
   "start": "Start",
   "savePreset": "Save preset",
   "reset": "Reset",
-  "noPresets": "No presets"
+  "noPresets": "No presets",
+  "hours": "Hours",
+  "minutes": "Minutes",
+  "seconds": "Seconds",
+  "close": "Close"
 }
