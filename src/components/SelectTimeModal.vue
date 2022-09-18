@@ -38,6 +38,31 @@ function isValidTime(num: number): boolean {
   return true;
 }
 
+const secondsInput = ref<HTMLInputElement | null>(null);
+const minutesInput = ref<HTMLInputElement | null>(null);
+
+
+function hoursKeypressHandler(e: KeyboardEvent): void {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    minutesInput.value?.focus();
+  }
+}
+
+function minutesKeypressHandler(e: KeyboardEvent): void {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    secondsInput.value?.focus();
+  }
+}
+
+function secondsKeypressHandler(e: KeyboardEvent): void {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    emit("close");
+  }
+}
+
 watch(seconds, onInput);
 watch(minutes, onInput);
 watch(hours,   onInput);
@@ -53,7 +78,8 @@ watch(hours,   onInput);
                  class="time-input"
                  placeholder="hh"
                  min="0" max="59"
-                 v-model="hours"/>
+                 v-model="hours"
+                 @keypress="hoursKeypressHandler"/>
         </div>
         <span class="separator">:</span>
         <div>
@@ -62,7 +88,9 @@ watch(hours,   onInput);
                  class="time-input"
                  placeholder="mm"
                  min="0" max="59"
-                 v-model="minutes"/>
+                 v-model="minutes"
+                 @keypress="minutesKeypressHandler"
+                 ref="minutesInput"/>
         </div>
         <span class="separator">:</span>
         <div>
@@ -71,7 +99,9 @@ watch(hours,   onInput);
                  class="time-input"
                  placeholder="ss"
                  min="0" max="59"
-                 v-model="seconds"/>
+                 v-model="seconds"
+                 @keypress="secondsKeypressHandler"
+                 ref="secondsInput"/>
         </div>
       </div>
       <Button :text="t('close')" @click="emit('close')"/>
