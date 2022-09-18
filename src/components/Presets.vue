@@ -2,6 +2,9 @@
 import Preset from './PresetItem.vue';
 
 import type { IPreset, stateType } from "../types";
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const props = defineProps<{
   presets: Array<IPreset>,
@@ -28,7 +31,7 @@ function openPreset(id: number): void {
     <TransitionGroup>
       <Preset v-for="p in presets" :data="p" @delete="deletePreset" :state="props.state" @open="openPreset" :key="p.id"/>
     </TransitionGroup>
-    <div class="placeholder">No presets</div>
+    <div class="placeholder">{{ t("noPresets") }}</div>
   </div>
 </template>
 

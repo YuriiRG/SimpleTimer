@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 import Button from './Button.vue';
+
+const { t } = useI18n();
 
 const props = defineProps<{
   time: number
@@ -45,7 +48,7 @@ watch(hours,   onInput);
     <div class="modal-window">
       <div class="time-input-container">
         <div>
-          <label>Hours</label>
+          <label>{{ t("hours") }}</label>
           <input type="number"
                  class="time-input"
                  placeholder="hh"
@@ -54,7 +57,7 @@ watch(hours,   onInput);
         </div>
         <span class="separator">:</span>
         <div>
-          <label>Minutes</label>
+          <label>{{ t("minutes") }}</label>
           <input type="number"
                  class="time-input"
                  placeholder="mm"
@@ -63,7 +66,7 @@ watch(hours,   onInput);
         </div>
         <span class="separator">:</span>
         <div>
-          <label>Seconds</label>
+          <label>{{ t("seconds") }}</label>
           <input type="number"
                  class="time-input"
                  placeholder="ss"
@@ -71,7 +74,7 @@ watch(hours,   onInput);
                  v-model="seconds"/>
         </div>
       </div>
-      <Button text="Close" @click="emit('close')"/>
+      <Button :text="t('close')" @click="emit('close')"/>
     </div>
   </div>
 </template>

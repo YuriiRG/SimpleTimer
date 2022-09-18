@@ -5,6 +5,10 @@ import Button from "./components/Button.vue";
 import type { stateType, IPreset } from "./types";
 import { ref } from "vue";
 import DarkModeSwitch from "./components/DarkModeSwitch.vue";
+import LocaleChanger from "./components/LocaleChanger.vue";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 
 let idCounter = 0;
 
@@ -71,7 +75,10 @@ function onResetClick() {
 <template>
   <div class="container">
     <div class="header">
-      <h1>Simple timer</h1>
+      <h1>{{ t("simpleTimer") }}</h1>
+      <div class="locale-changer-container">
+        <LocaleChanger/>
+      </div>
       <div class="dark-mode-switch">
         <DarkModeSwitch v-model:on="darkMode"/>
       </div>
@@ -80,13 +87,13 @@ function onResetClick() {
       <div class="app">
         <Presets v-model:presets="presetsList" @delete-preset="deletePreset" :state="timerState" @open-preset="openPreset"/>
         <div class="buttons">
-          <Button :text="timerState === 'running' ? 'Pause' : 'Start'"
+          <Button :text="timerState === 'running' ? t('pause') : t('start')"
                   @click="onStartPauseClick"
                   :disabled="!['idle', 'paused', 'running'].includes(timerState)"/>
-          <Button text="Reset"
+          <Button :text="t('reset')"
                   @click="onResetClick"
                   :disabled="!['finished', 'paused'].includes(timerState)"/>
-          <Button text="Add preset"
+          <Button :text="t('savePreset')"
                   @click="addPreset"
                   :disabled="!(timerState === 'idle')"/>
         </div>
@@ -118,11 +125,16 @@ function onResetClick() {
   margin: 1rem;
   font-weight: 800;
   line-height: 1.5rem;
+  flex-grow: 1;
 }
 
 .header {
   display: flex;
-  justify-content: space-between;
+}
+
+.locale-changer-container {
+  display: flex;
+  align-items: center;
 }
 
 .app {
