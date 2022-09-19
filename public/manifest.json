@@ -1,0 +1,9 @@
+{
+  "name": "Simple timer",
+  "short_name": "Timer",
+  "theme_color": "#6130E3",
+  "background_color": "#6130E3",
+  "display": "standalone",
+  "scope": "/SimpleTimer",
+  "start_url": "/SimpleTimer"
+}
