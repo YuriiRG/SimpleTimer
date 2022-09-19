@@ -11,6 +11,8 @@ export default defineConfig({
   VitePWA({
     base: "/SimpleTimer/",
     manifestFilename: "manifest.json",
+    injectRegister: "inline",
+    registerType: "autoUpdate",
     manifest: {
       name: "Simple timer",
       short_name: "Timer",

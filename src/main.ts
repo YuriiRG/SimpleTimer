@@ -4,7 +4,6 @@ import App from "./App.vue"
 import { createI18n } from "vue-i18n"
 import en from "./locales/en.json"
 import ru from "./locales/ru.json"
-import { registerSW } from 'virtual:pwa-register'
 
 let locale = "en";
 
@@ -31,5 +30,3 @@ const i18n = createI18n({
 });
 
 createApp(App).use(i18n).mount("#app");
-
-registerSW();
