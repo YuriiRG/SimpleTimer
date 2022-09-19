@@ -7,6 +7,7 @@ import { ref } from "vue";
 import DarkModeSwitch from "./components/DarkModeSwitch.vue";
 import LocaleChanger from "./components/LocaleChanger.vue";
 import { useI18n } from "vue-i18n";
+import EmojiAttribution from "./components/EmojiAttribution.vue";
 
 const { t } = useI18n();
 
@@ -101,6 +102,9 @@ function onResetClick() {
           <Timer v-model:time="time" v-model:timeLeft="timeLeft" v-model:state="timerState"/>
         </div>
       </div>
+    </div>
+    <div>
+      <EmojiAttribution/>
     </div>
   </div>
 </template>
