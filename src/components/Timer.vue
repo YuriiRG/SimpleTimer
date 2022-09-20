@@ -16,6 +16,8 @@ const emit = defineEmits<{
   (e: "update:state", newValue: stateType): void;
 }>();
 
+let audio = new Audio('/SimpleTimer/ring.mp3');
+
 let pauseStartTime = -1;
 let startTime = -1;
 let timeoutId = -1;
@@ -74,7 +76,6 @@ function animateTimer(now: number) {
 }
 
 function playRing() {
-  let audio = new Audio('/SimpleTimer/ring.mp3');
   audio.play();
 }
 
