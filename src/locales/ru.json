@@ -8,5 +8,6 @@
   "hours": "Часы",
   "minutes": "Минуты",
   "seconds": "Секунды",
-  "close": "Закрыть"
+  "close": "Закрыть",
+  "timerFinished": "Таймер окончен"
 }
