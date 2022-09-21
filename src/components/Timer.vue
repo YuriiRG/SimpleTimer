@@ -3,6 +3,9 @@ import { computed, ref, watch, watchEffect } from 'vue';
 import { secondsToString } from '../timeConvert';
 import SelectTimeModal from "./SelectTimeModal.vue";
 import type { stateType } from '../types';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const props = defineProps<{
   time: number,
@@ -43,11 +46,29 @@ function initTimer() {
   }
 }
 
+function requestNotificationPermission() {
+  if (Notification.permission === "default") {
+    Notification.requestPermission();
+  }
+}
+
+requestNotificationPermission();
+
+function finishNotify() {
+  if (Notification.permission === "granted") {
+    new Notification(t("timerFinished"));
+  }
+}
+
 function finishTimer(): void {
   emit("update:timeLeft", 0);
   emit("update:state", "finished");
+  if (startTime !== -1) {
+    playRing();
+    finishNotify();
+  }
   startTime = -1;
-  playRing();
+  
 }
 
 function animateTimer(now: number) {
