@@ -13,9 +13,9 @@ const { t } = useI18n();
 
 let idCounter = 0;
 
-const time = ref(0);
+const time = ref(60);
 
-const timeLeft = ref(0);
+const timeLeft = ref(60);
 
 const timerState = ref("idle" as stateType);
 

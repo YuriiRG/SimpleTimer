@@ -41,7 +41,7 @@ watch(() => props.time, newValue => {
 
 function initTimer() {
   requestAnimationFrame(animateTimer);
-  if (pauseStartTime === -1) {
+  if (pauseStartTime === -1 && props.time >= 1) {
     timeoutId = setTimeout(finishTimer, props.time*1000);
   }
 }
@@ -68,7 +68,6 @@ function finishTimer(): void {
     finishNotify();
   }
   startTime = -1;
-  
 }
 
 function animateTimer(now: number) {
