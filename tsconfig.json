@@ -1,7 +1,7 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
   "compilerOptions": {
-    "types": ["vite/client"]
+    "types": ["vite/client", "vite-plugin-pwa/client"]
   },
   "include": ["src/**/*", "src/**/*.vue", "env.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
