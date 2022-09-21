@@ -8,5 +8,6 @@
   "hours": "Hours",
   "minutes": "Minutes",
   "seconds": "Seconds",
-  "close": "Close"
+  "close": "Close",
+  "timerFinished": "Timer finished"
 }
