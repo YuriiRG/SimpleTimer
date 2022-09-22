@@ -1,10 +1,30 @@
 <script setup lang="ts">
+import { useHead } from '@vueuse/head';
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const { locale, availableLocales } = useI18n();
 
+const manifestName = computed(() => `/SimpleTimer/${locale.value}-manifest.json`);
+
+function updateDocumentLangAttr() {
+  document.documentElement.setAttribute("lang", locale.value);
+}
+
+useHead({
+  link: [
+    {
+      rel: "manifest",
+      href: manifestName
+    }
+  ]
+});
+
+updateDocumentLangAttr();
+
 function saveCurrentLocale(): void {
-  localStorage.setItem("lang", locale.value as string);
+  localStorage.setItem("lang", locale.value);
+  updateDocumentLangAttr();
 }
 </script>
 <template>
