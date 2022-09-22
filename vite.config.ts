@@ -10,29 +10,10 @@ export default defineConfig({
   }),
   VitePWA({
     base: "/SimpleTimer/",
-    manifestFilename: "manifest.json",
+    manifestFilename: undefined,
     injectRegister: "inline",
     registerType: "autoUpdate",
-    manifest: {
-      name: "Simple timer",
-      short_name: "Timer",
-      theme_color: "#6130E3",
-      background_color: "#6130E3",
-      display: "standalone",
-      scope: "/SimpleTimer/",
-      start_url: "/SimpleTimer/",
-      icons: [
-        {
-          src: "/SimpleTimer/logo180x180.png",
-          sizes: "180x180",
-          type: "image/png"
-        },
-        {
-          src: "/SimpleTimer/logo.svg",
-          sizes: "any"
-        }
-      ]
-    }
+    manifest: false
   })],
   base: "/SimpleTimer/"
 })
