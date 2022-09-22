@@ -7,6 +7,10 @@ const { locale, availableLocales } = useI18n();
 
 const manifestName = computed(() => `/SimpleTimer/${locale.value}-manifest.json`);
 
+function updateDocumentLangAttr() {
+  document.documentElement.setAttribute("lang", locale.value);
+}
+
 useHead({
   link: [
     {
@@ -16,8 +20,11 @@ useHead({
   ]
 });
 
+updateDocumentLangAttr();
+
 function saveCurrentLocale(): void {
-  localStorage.setItem("lang", locale.value as string);
+  localStorage.setItem("lang", locale.value);
+  updateDocumentLangAttr();
 }
 </script>
 <template>
