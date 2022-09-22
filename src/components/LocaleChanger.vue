@@ -1,7 +1,12 @@
 <script setup lang="ts">
+import { useHead } from '@vueuse/head';
 import { useI18n } from 'vue-i18n';
 
 const { locale, availableLocales } = useI18n();
+
+// useHead({
+//   title: locale
+// });
 
 function saveCurrentLocale(): void {
   localStorage.setItem("lang", locale.value as string);

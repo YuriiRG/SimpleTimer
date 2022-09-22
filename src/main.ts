@@ -4,6 +4,7 @@ import App from "./App.vue"
 import { createI18n } from "vue-i18n"
 import en from "./locales/en.json"
 import ru from "./locales/ru.json"
+import { createHead } from "@vueuse/head"
 
 let locale = "en";
 
@@ -35,4 +36,6 @@ const i18n = createI18n({
   }
 });
 
-createApp(App).use(i18n).mount("#app");
+const head = createHead();
+
+createApp(App).use(i18n).use(head).mount("#app");
