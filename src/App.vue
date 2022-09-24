@@ -42,7 +42,14 @@ function deletePreset(id: number): void {
 
 function openPreset(id: number): void {
   if (timerState.value === "idle") {
-    time.value = presetsList.value.filter(p => p.id === id)[0].time;
+    let clickedButtons = presetsList.value.filter(p => p.id === id);
+    if (clickedButtons.length === 1) {
+      time.value = presetsList.value.filter(p => p.id === id)[0].time;
+    } else {
+      console.log("Error with presets. It shouldn't have been happened." +
+                  "Create an issue on https://github.com/YuriiRG/SimpleTimer");
+      console.log({ id, presetsList: presetsList.value });
+    }
   }
 }
 
