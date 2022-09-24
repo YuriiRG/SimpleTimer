@@ -4,7 +4,7 @@ describe("Typical usage", () => {
   });
 
   beforeEach(() => {
-    cy.visit("http://127.0.0.1:5173/SimpleTimer/");
+    cy.visit("http://localhost:4173/SimpleTimer/");
     cy.get(".locale-changer select").select("en");
   });
 
