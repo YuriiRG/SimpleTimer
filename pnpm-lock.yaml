@@ -15,10 +15,10 @@ specifiers:
   workbox-window: ^6.5.4
 
 dependencies:
+<<<<<<< HEAD
   cypress: 10.8.0
+=======
   '@vueuse/head': 0.7.12_vue@3.2.39
-  vue: 3.2.39
-  vue-i18n: 9.2.2_vue@3.2.39
 
 devDependencies:
   '@intlify/vite-plugin-vue-i18n': 6.0.1_vite@3.1.1+vue-i18n@9.2.2
